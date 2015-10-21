@@ -81,3 +81,4 @@ if (isset($modx) && is_object($modx) && $modx instanceof modX) {
 }
 @session_write_close();
 exit();
+echo = "Сдавайтесь";
