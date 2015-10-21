@@ -1,8 +1,0 @@
-runas /user:itbi\lukyanova "explorer /separate"
-
-
-
-
-Sdelayte ydalen.inkas na terminale SK Formyla.
-Сделайте Удален.Инкас. на терминале СК Формула
-Сделайте Удален.Инкас. СК Формула
