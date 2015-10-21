@@ -216,12 +216,3 @@ pip-log.txt
 .mr.developer.cfg
 .idea
 .gradle
-app\build
-gradlew
-gradlew.bat
-HappyLists.iml
-app/build.gradle
-build.gradle
-settings.gradle
-import-summary.txt
-gradle
