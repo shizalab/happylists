@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Happylists</string>
+
+    <string name="btSS">+ Новый список</string>
+
+    <string name="Titl">Удаление</string>
+    <string name="delete_record">Вы уверены, что хотите удалить список?</string>
+    <string name="yes">Да</string>
+    <string name="cancel">Отмена</string>
+
 </resources>
