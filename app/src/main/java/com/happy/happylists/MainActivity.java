@@ -13,7 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -23,7 +22,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     static final String TAG = "myLogs";
     final int DIALOG_EXIT = 1;
-    final SwipeDetector swipeDetector = new SwipeDetector();
 
     DB db;
     Button bt_new;
@@ -51,39 +49,26 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         bt_new.setOnClickListener(this);
 
         CreateListSpisok();
-        lvSS.setOnTouchListener(swipeDetector);
-        lvSS.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (swipeDetector.swipeDetected()) {
-                    // do the onSwipe action
-                    switch (swipeDetector.getAction().toString()) {
-                        case "LR":
-                            Log.d(TAG, "ЛУКЬЯНОВ ЗАДРОТ!!!!");
-                            break;
-                        case "RL":
-                            // Log.d(TAG, "сделали свайп справа налево");
-                            // свайп влево - удалить
-                            prodid = (int) id;
-                            showDialog(DIALOG_EXIT);
-                            break;
-                    }
-                } else {
-                    // do the onItemClick action
-                }
-            }
-        });
-        lvSS.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                if (swipeDetector.swipeDetected()) {
-                    // do the onSwipe action
-                } else {
-                    // do the onItemLongClick action
-                    // Длинный тап - редактировать список.
-                }
-                return false;
-            }
-        });
+        SwipeDismissListViewTouchListener touchListener =
+                new SwipeDismissListViewTouchListener(
+                        lvSS,
+                        new SwipeDismissListViewTouchListener.DismissCallbacks() {
+                            @Override
+                            public boolean canDismiss(int position) {
+                                return true;
+                            }
+
+                            @Override
+                            public void onDismiss(ListView listView, int[] reverseSortedPositions) {
+                                for (int position : reverseSortedPositions) {
+                                    prodid = (int) scAdapter.getItemId(position);
+                                    showDialog(DIALOG_EXIT);
+                                }
+                            }
+                        });
+        lvSS.setOnTouchListener(touchListener);
+        lvSS.setOnScrollListener(touchListener.makeScrollListener());
+
     }
 
     @Override

@@ -1,3 +1,4 @@
+/* процедура заставки при загрузки */
 package com.happy.happylists;
 
 import android.app.Activity;
