@@ -21,7 +21,7 @@ public class DB {
   
    public void open() {
 	  if (database==null) {
-		  ExternalDbOpenHelper dbOpenHelper = new ExternalDbOpenHelper(mCtx, "Pokypka");
+		  ExternalDbOpenHelper dbOpenHelper = new ExternalDbOpenHelper(mCtx, "hlbase");
 		  database = dbOpenHelper.openDataBase();
 	  }
    }

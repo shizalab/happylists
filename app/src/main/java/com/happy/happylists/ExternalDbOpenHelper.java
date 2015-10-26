@@ -21,7 +21,7 @@ public class ExternalDbOpenHelper extends SQLiteOpenHelper {
     //Путь к папке с базами на устройстве
     public static String DB_PATH;
     //Имя файла с базой
-    public static String DB_NAME= "Pokypka";
+    public static String DB_NAME= "hlbase";
     public SQLiteDatabase database;
     public final Context context;
 
