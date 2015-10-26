@@ -254,6 +254,7 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
                 float deltaX = motionEvent.getRawX() - mDownX;
                 float deltaY = motionEvent.getRawY() - mDownY;
                 if (Math.abs(deltaX) > mSlop && Math.abs(deltaY) < Math.abs(deltaX) / 2) {
+                    if (deltaX < 0) {
                     mSwiping = true;
                     mSwipingSlop = (deltaX > 0 ? mSlop : -mSlop);
                     mListView.requestDisallowInterceptTouchEvent(true);
@@ -265,6 +266,7 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
                                     << MotionEvent.ACTION_POINTER_INDEX_SHIFT));
                     mListView.onTouchEvent(cancelEvent);
                     cancelEvent.recycle();
+                    }
                 }
 
                 if (mSwiping) {
