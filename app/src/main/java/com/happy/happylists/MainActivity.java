@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                     // do the onSwipe action
                     switch (swipeDetector.getAction().toString()) {
                         case "LR":
-                            //Log.d(TAG, "сделали свайп слева направо");
+                            Log.d(TAG, "сделали свайп слева направо");
                             break;
                         case "RL":
                             // Log.d(TAG, "сделали свайп справа налево");
