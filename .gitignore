@@ -226,8 +226,6 @@ gradlew.bat
 Happylists.iml
 local.properties
 settings.gradle
-app/build
-app/app.iml
-app/build.gradle
-app/proguard-rules.pro
-app/.gitignore
+/app/*
+!/app/libs/
+!/app/src/
