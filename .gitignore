@@ -213,11 +213,11 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
-.idea
-.gradle
-.git
-.build
-gradle
+.idea/
+.gradle/
+.git/
+.build/
+gradle/
 .project
 build.gradle
 gradle.properties
@@ -226,7 +226,6 @@ gradlew.bat
 Happylists.iml
 local.properties
 settings.gradle
-app/build
-app/app.iml
-app/build.gradle
-app/proguard-rules.pro
+/app/*
+!/app/libs/
+!/app/src/
