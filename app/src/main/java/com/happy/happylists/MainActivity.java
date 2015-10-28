@@ -2,6 +2,7 @@ package com.happy.happylists;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     Cursor spisCursor, cursor;
     SwipeDismissListViewTouchListener touchListener;
 
-    int prodid;
+    int prodid, sn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +58,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bt_new:
-                addNewSpisok();
+                Intent intent = new Intent(this, NewSpisok.class);
+                startActivity(intent);
                 break;
         }
     }
@@ -98,8 +100,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     //процедура содания Списка списков
     private void CreateListSpisok() {
-        String[] from = new String[] { "sname", "sdate" };
-        int[] to = new int[] {R.id.tvSS , R.id.tvSSinf};
+        String[] from = new String[] { "sname", "sdate", "sopis" };
+        int[] to = new int[] {R.id.tvSS , R.id.tvDat, R.id.tvOpis};
         scAdapter = new SimpleCursorAdapter(this, R.layout.sspisoklist, null, from, to, 0);
         scAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
             @Override
@@ -109,9 +111,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                         TextView tvSStmp = (TextView) view.findViewById(R.id.tvSS);
                         tvSStmp.setText(cursor.getString(cursor.getColumnIndex("sname")));
                         return true;
-                    case R.id.tvSSinf:
-                        TextView tvSSinftmp = (TextView) view.findViewById(R.id.tvSSinf);
-                        tvSSinftmp.setText(cursor.getString(cursor.getColumnIndex("sdate")));
+                    case R.id.tvDat:
+                        TextView tvDat = (TextView) view.findViewById(R.id.tvDat);
+                        tvDat.setText(cursor.getString(cursor.getColumnIndex("sdate")));
+                        return true;
+                    case R.id.tvOpis:
+                        TextView tvOpis = (TextView) view.findViewById(R.id.tvOpis);
+                        tvOpis.setText(cursor.getString(cursor.getColumnIndex("sopis")));
                         return true;
                 }
                 return false;
@@ -146,11 +152,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 return new CursorLoader(this){
                     @Override
                     public Cursor loadInBackground() {
-                        spisCursor = db.getAllSpisok("Spisok", null, "snom", "snom");
-                        if (spisCursor.getCount() == 0) {
-                            db.addNewSpisok("Spisok", 1 ,"Список "+1);
-                            spisCursor = db.getAllSpisok("Spisok", null,"snom", "snom");
-                        }
+                        spisCursor = db.getAllSpisok("Spisok", "sn");
+                       /* if (spisCursor.getCount() == 0) {
+                            db.addNewSpisok("Spisok", 1 ,"Список "+1,"");
+                            spisCursor = db.getAllSpisok("Spisok", "sn");
+                        }*/
                         return spisCursor;
                     }
                 };
@@ -180,21 +186,21 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     // процедура добавления нового списка
-    private void addNewSpisok() {
+   /* private void addNewSpisok() {
         cursor = db.getMaxSpisok("Spisok");
         int max_nom = 0;
-        int id_nom = cursor.getColumnIndex("snom");
+        sn = cursor.getColumnIndex("sn");
         cursor.moveToFirst();
         do {
-            if (!cursor.isNull(id_nom))
-                max_nom= Integer.parseInt(cursor.getString(id_nom));
+            if (!cursor.isNull(sn))
+                max_nom= Integer.parseInt(cursor.getString(sn));
         } while (cursor.moveToNext());
         cursor.close();
         max_nom = max_nom+1;
         //добавляем запись в базу
         db.addNewSpisok("Spisok", max_nom, "Список " + max_nom);
         getSupportLoaderManager().getLoader(0).forceLoad();
-    }
+    }*/
 
 
 }

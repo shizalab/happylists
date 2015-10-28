@@ -35,35 +35,31 @@ public class DB {
 // работа над Списками список
 
   //Выборка всего списка
-	public Cursor getAllSpisok(String DB_TABLE, String DB_SEL,String DB_GR,String DB_OB) {
-	    return database.query(DB_TABLE, null, null, null, DB_GR, null, DB_OB);
+	public Cursor getAllSpisok(String DB_TABLE,String DB_OB) {
+	    return database.query(DB_TABLE, null, null, null, null, null, DB_OB);
   	}
  	 // добавить запись в таблицу Список
- 	 public void addNewSpisok(String DB_TABLE, int snom,String snam) {
+ 	 public void addNewSpisok(String DB_TABLE, int snom,String snam, String sopis,int stype,int usid ) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 		String datetime = sdf.format(new Date(System.currentTimeMillis()));
 		ContentValues cv = new ContentValues();
-		cv.put("snom", snom);
+		cv.put("sn", snom);
 		cv.put("sname", snam);
+    	cv.put("sopis", sopis);
+		cv.put("stype", stype);
 		cv.put("sdate", datetime);
-		cv.put("pid", "0");
-		cv.put("skol", "0");
-		cv.put("sprice", "0");
-		cv.put("svagno", "0");
-		cv.put("skorz", "0");
-		cv.put("eid", 0);
 		cv.put("vid", 4);
-		cv.put("klid", 0);
+		cv.put("usid", usid);
 		database.insert(DB_TABLE, null, cv);
   	}
 	// Ищем максимальный номер списка в списке
 	public Cursor getMaxSpisok(String DB_TABLE) {
-		return database.rawQuery("Select max(snom) as snom, sname, _id  from "+DB_TABLE, null);
+		return database.rawQuery("Select max(sn) as sn, sname, _id  from "+DB_TABLE, null);
 	}
 	// удалить список из списка
 	public void delRec(String DB_TABLE,long id) {
-		String txt = "(select s.snom FROM spisok s where s._id ="+id+")";
-		database.delete(DB_TABLE, "snom = " + txt, null);
+		String txt = "(select s.sn FROM spisok s where s._id ="+id+")";
+		database.delete(DB_TABLE, "sn = " + txt, null);
 		//database.delete("Nastr", "sn = " + txt, null);
 	}
 

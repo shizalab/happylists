@@ -8,4 +8,17 @@
     <string name="yes">Да</string>
     <string name="cancel">Отмена</string>
 
+    <string name="etName">Название списка</string>
+    <string name="etOpis">Описание</string>
+    <string name="tvType">Тип списка:</string>
+    <string name="rbD">Дела</string>
+    <string name="rbP">Покупки</string>
+    <string name="rbZ">Задачи</string>
+    <string name="cbPrice">Цена</string>
+    <string name="cbValuta">Валюта</string>
+    <string name="cbKolvo">Количество</string>
+    <string name="cbNapom">Напоминание</string>
+    <string name="cbSin">Добавить к синхронизации</string>
+    <string name="btnAdd">Создать</string>
+
 </resources>
