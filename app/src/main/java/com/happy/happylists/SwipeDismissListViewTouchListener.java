@@ -329,7 +329,7 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
                     // animation with a stale position
                     mDownPosition = ListView.INVALID_POSITION;
 
-                    ViewGroup.LayoutParams lp;
+                    /*ViewGroup.LayoutParams lp;
                     for (PendingDismissData pendingDismiss : mPendingDismisses) {
                         // Reset view presentation
                         setAlpha(pendingDismiss.view, 1f);
@@ -337,7 +337,7 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
                         lp = pendingDismiss.view.getLayoutParams();
                         lp.height = originalHeight;
                         pendingDismiss.view.setLayoutParams(lp);
-                    }
+                    }*/
 
                     // Send a cancel event
                     long time = SystemClock.uptimeMillis();
@@ -345,8 +345,9 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
                             MotionEvent.ACTION_CANCEL, 0, 0, 0);
                     mListView.dispatchTouchEvent(cancelEvent);
 
-                    mPendingDismisses.clear();
-                }
+                   // mPendingDismisses.clear();
+
+                 }
             }
         });
 
@@ -361,4 +362,5 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
         mPendingDismisses.add(new PendingDismissData(dismissPosition, dismissView));
         animator.start();
     }
+
 }

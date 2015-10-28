@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     ListView lvSS;
     SimpleCursorAdapter scAdapter;
     Cursor spisCursor, cursor;
+    SwipeDismissListViewTouchListener touchListener;
 
     int prodid;
 
@@ -49,25 +50,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         bt_new.setOnClickListener(this);
 
         CreateListSpisok();
-        SwipeDismissListViewTouchListener touchListener =
-                new SwipeDismissListViewTouchListener(
-                        lvSS,
-                        new SwipeDismissListViewTouchListener.DismissCallbacks() {
-                            @Override
-                            public boolean canDismiss(int position) {
-                                return true;
-                            }
-
-                            @Override
-                            public void onDismiss(ListView listView, int[] reverseSortedPositions) {
-                                for (int position : reverseSortedPositions) {
-                                    prodid = (int) scAdapter.getItemId(position);
-                                    showDialog(DIALOG_EXIT);
-                                }
-                            }
-                        });
-        lvSS.setOnTouchListener(touchListener);
-        lvSS.setOnScrollListener(touchListener.makeScrollListener());
 
     }
 
@@ -106,11 +88,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 case Dialog.BUTTON_POSITIVE:
                     db.delRec("Spisok", prodid);
                     getSupportLoaderManager().getLoader(0).forceLoad();
-                    break;
                 // нейтральная кнопка
                 case Dialog.BUTTON_NEUTRAL:
                     break;
             }
+            CreateListSpisok();
         }
     };
 
@@ -138,6 +120,25 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         lvSS.setAdapter(scAdapter);
         // создаем лоадер для чтения данных
         getSupportLoaderManager().initLoader(0, null, this);
+        touchListener =
+                new SwipeDismissListViewTouchListener(
+                        lvSS,
+                        new SwipeDismissListViewTouchListener.DismissCallbacks() {
+                            @Override
+                            public boolean canDismiss(int position) {
+                                return true;
+                            }
+
+                            @Override
+                            public void onDismiss(ListView listView, int[] reverseSortedPositions) {
+                                for (int position : reverseSortedPositions) {
+                                    prodid = (int) scAdapter.getItemId(position);
+                                    showDialog(DIALOG_EXIT);
+                                }
+                            }
+                        });
+        lvSS.setOnTouchListener(touchListener);
+        lvSS.setOnScrollListener(touchListener.makeScrollListener());
     }
 
     public Loader<Cursor> onCreateLoader(int arg0, Bundle arg1) {
