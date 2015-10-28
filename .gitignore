@@ -227,6 +227,7 @@ Happylists.iml
 local.properties
 settings.gradle
 app/build
-/app/app.iml
-/app/build.gradle
-/app/proguard-rules.pro
+app/app.iml
+app/build.gradle
+app/proguard-rules.pro
+app/.gitignore
