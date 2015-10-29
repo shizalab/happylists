@@ -32,6 +32,13 @@ public class DB {
     	}
   }
 
+// работа над Пользователем
+
+	//получить имя списка из таблицы DB_TABLE
+	public Cursor getUserID() {
+		return database.rawQuery("select _id from Huser ", null);
+	}
+
 // работа над Списками список
 
   //Выборка всего списка
@@ -52,15 +59,60 @@ public class DB {
 		cv.put("usid", usid);
 		database.insert(DB_TABLE, null, cv);
   	}
+	// добавить запись в таблицу Список
+	public void updateSpisok(String DB_TABLE, int snom,String snam, String sopis,int usid ) {
+		ContentValues cv = new ContentValues();
+		cv.put("sname", snam);
+		cv.put("sopis", sopis);
+		cv.put("usid", usid);
+		database.update(DB_TABLE, cv, "sn = " + snom, null);
+	}
+
 	// Ищем максимальный номер списка в списке
 	public Cursor getMaxSpisok(String DB_TABLE) {
-		return database.rawQuery("Select max(sn) as sn, sname, _id  from "+DB_TABLE, null);
+		return database.rawQuery("Select max(sn) as sn, _id  from "+DB_TABLE, null);
 	}
 	// удалить список из списка
 	public void delRec(String DB_TABLE,long id) {
 		String txt = "(select s.sn FROM spisok s where s._id ="+id+")";
 		database.delete(DB_TABLE, "sn = " + txt, null);
 		//database.delete("Nastr", "sn = " + txt, null);
+	}
+	// Ищем определенный список
+	public Cursor getSpisokId(int sid) {
+		return database.rawQuery("Select *  from spisok where _id ="+sid, null);
+	}
+
+// работа с Настройками
+
+	// Добавить новую настройку для нового списка
+	public void addNewNastr(String DB_TABLE, int snom, int kg, int kl,int pr,int vl,int ui,int si,int np) {
+		ContentValues cv = new ContentValues();
+		cv.put("sn", snom);
+		cv.put("kateg", kg);
+		cv.put("kolvo", kl);
+		cv.put("price", pr);
+		cv.put("valuta", vl);
+		cv.put("ekr", "0");
+		cv.put("usid", ui);
+		cv.put("sinch", si);
+		cv.put("napom", np);
+		database.insert(DB_TABLE, null, cv);
+	}
+	//открыть настройку для указанного списка
+	public Cursor getNastr(int sn) {
+		return database.rawQuery("select * from Nastr where sn= "+sn, null);
+	}
+	//обновить настройку для списка
+	public void UpDateNastr(String DB_TABLE, int sn, int kl,int pr,int vl,int ui,int si,int np) {
+		ContentValues cv = new ContentValues();
+		cv.put("kolvo", kl);
+		cv.put("price", pr);
+		cv.put("valuta", vl);
+		cv.put("usid", ui);
+		cv.put("sinch", si);
+		cv.put("napom", np);
+		database.update(DB_TABLE, cv, "sn = "+ sn, null);
 	}
 
 }
