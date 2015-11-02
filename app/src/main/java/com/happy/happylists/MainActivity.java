@@ -14,12 +14,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>,
-        View.OnClickListener {
+        View.OnClickListener, AdapterView.OnItemLongClickListener {
 
     static final String TAG = "myLogs";
     final int DIALOG_EXIT = 1;
@@ -52,13 +53,18 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         CreateListSpisok();
 
+        lvSS.setOnItemLongClickListener(this);
+
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bt_new:
+                String btn = "Создать";
                 Intent intent = new Intent(this, NewSpisok.class);
+                intent.putExtra("snid", "0");
+                intent.putExtra("btn", btn);
                 startActivity(intent);
                 break;
         }
@@ -153,10 +159,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                     @Override
                     public Cursor loadInBackground() {
                         spisCursor = db.getAllSpisok("Spisok", "sn");
-                       /* if (spisCursor.getCount() == 0) {
-                            db.addNewSpisok("Spisok", 1 ,"Список "+1,"");
-                            spisCursor = db.getAllSpisok("Spisok", "sn");
-                        }*/
                         return spisCursor;
                     }
                 };
@@ -185,22 +187,21 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         db.close();
     }
 
-    // процедура добавления нового списка
-   /* private void addNewSpisok() {
-        cursor = db.getMaxSpisok("Spisok");
-        int max_nom = 0;
-        sn = cursor.getColumnIndex("sn");
-        cursor.moveToFirst();
-        do {
-            if (!cursor.isNull(sn))
-                max_nom= Integer.parseInt(cursor.getString(sn));
-        } while (cursor.moveToNext());
-        cursor.close();
-        max_nom = max_nom+1;
-        //добавляем запись в базу
-        db.addNewSpisok("Spisok", max_nom, "Список " + max_nom);
+    @Override
+    public void onRestart() {
+        super.onRestart();
         getSupportLoaderManager().getLoader(0).forceLoad();
-    }*/
+    }
 
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        String btn = "Сохранить";
+        int snid = (int) id;
+        Intent intent = new Intent(this, NewSpisok.class);
+        intent.putExtra("snid", snid);
+        intent.putExtra("btn", btn);
+        startActivity(intent);
+        return false;
+    }
 
 }
