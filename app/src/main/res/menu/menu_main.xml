@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+
+     <item
+        android:id="@+id/it01"
+        android:icon="@drawable/arrows"
+        android:orderInCategory="1"
+        app:showAsAction="always"
+        android:title="@string/it01">
+    </item>
+    <item
+        android:id="@+id/it02"
+        android:icon="@drawable/arrows"
+        android:orderInCategory="2"
+        app:showAsAction="ifRoom"
+        android:title="@string/it02">
+    </item>
+    <item
+        android:id="@+id/it03"
+        android:icon="@drawable/star"
+        android:orderInCategory="3"
+        app:showAsAction="ifRoom"
+        android:title="@string/it03">
+    </item>
+
+       <item
+            android:id="@+id/it04"
+            android:icon="@drawable/men"
+            android:orderInCategory="4"
+            app:showAsAction="ifRoom"
+            android:title="@string/it04">
+        </item>
+        <item
+            android:id="@+id/it05"
+            android:icon="@drawable/info25"
+            android:orderInCategory="5"
+            app:showAsAction="ifRoom"
+            android:title="@string/it05">
+        </item>
+        <item
+            android:id="@+id/it06"
+            android:icon="@drawable/tools"
+            android:orderInCategory="6"
+            app:showAsAction="ifRoom"
+            android:title="@string/it06">
+        </item>
+        <item
+            android:id="@+id/it07"
+            android:icon="@drawable/blocnote25"
+            android:orderInCategory="7"
+            app:showAsAction="ifRoom|withText"
+            android:title="@string/it07">
+        </item>
+
+
+</menu>

@@ -13,6 +13,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         //убрать иконку приложения
         ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
+        actionBar.setTitle(R.string.Spiski);
 
         db = new DB(this);
         db.open();
@@ -55,6 +56,23 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         lvSS.setOnItemLongClickListener(this);
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        /*
+        // Проверим доступность сети
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        boolean isNetworkAvailable = activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
+        // Установим видимость кнопке Поделиться
+        MenuItem shareMenuItem = menu.findItem(R.id.it02);
+        shareMenuItem.setVisible(isNetworkAvailable);*/
+
+        return true;
     }
 
     @Override
@@ -101,6 +119,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                     break;
             }
             CreateListSpisok();
+
         }
     };
 
@@ -203,5 +222,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         startActivity(intent);
         return false;
     }
+
 
 }
