@@ -42,8 +42,6 @@ public class NewSpisok extends Activity implements View.OnClickListener, RadioGr
         //snid = Integer.parseInt(getIntent().getStringExtra("snid"));
         snid = getIntent().getExtras().getInt("snid");
 
-        Log.d(TAG, "snid="+snid);
-
         db = new DB(this);
         db.open();
 

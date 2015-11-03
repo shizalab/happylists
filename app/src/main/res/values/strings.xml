@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Happylists</string>
 
+    <string name="Spiski">Списки</string>
     <string name="btSS">+ Новый список</string>
 
     <string name="Titl">Удаление</string>
@@ -18,6 +19,15 @@
     <string name="cbKolvo">Количество</string>
     <string name="cbNapom">Напоминание</string>
     <string name="cbSin">Добавить к синхронизации</string>
+
+    <string name="it01">Синхронизировать</string>
+    <string name="it02">Горячая синхронизация</string>
+    <string name="it03">Оценить приложение</string>
+    <string name="it04">Аккаунт</string>
+    <string name="it05">Инфо</string>
+    <string name="it06">Настройка</string>
+    <string name="it07">Справочники</string>
+
 
 
 </resources>

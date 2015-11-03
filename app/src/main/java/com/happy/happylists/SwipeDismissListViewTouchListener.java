@@ -340,10 +340,10 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
                     }*/
 
                     // Send a cancel event
-                    long time = SystemClock.uptimeMillis();
+                   /* long time = SystemClock.uptimeMillis();
                     MotionEvent cancelEvent = MotionEvent.obtain(time, time,
                             MotionEvent.ACTION_CANCEL, 0, 0, 0);
-                    mListView.dispatchTouchEvent(cancelEvent);
+                    mListView.dispatchTouchEvent(cancelEvent);*/
 
                    // mPendingDismisses.clear();
 
