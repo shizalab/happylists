@@ -7,13 +7,18 @@ import android.database.Cursor;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -32,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     SimpleCursorAdapter scAdapter;
     Cursor spisCursor, cursor;
     SwipeDismissListViewTouchListener touchListener;
+    DrawerLayout drawerLayout;
 
     int prodid, sn;
 
@@ -40,9 +46,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        //убрать иконку приложения
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(R.string.Spiski);
+        //стрелочка
+       // actionBar.setDisplayHomeAsUpEnabled(true);
 
         db = new DB(this);
         db.open();
@@ -60,7 +67,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
         /*
@@ -71,10 +77,40 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         // Установим видимость кнопке Поделиться
         MenuItem shareMenuItem = menu.findItem(R.id.it02);
         shareMenuItem.setVisible(isNetworkAvailable);*/
-
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        // Обработка выбранного элемента меню.
+        switch (item.getItemId())
+        {
+            case R.id.it01:
+
+                return true;
+            case R.id.it02:
+
+                return true;
+            case R.id.it03:
+
+                return true;
+            case R.id.it04:
+
+                return true;
+            case R.id.it05:
+
+                return true;
+            case R.id.it06:
+
+                return true;
+            case R.id.it07:
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
