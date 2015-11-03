@@ -213,19 +213,6 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
-.idea/
-.gradle/
-.git/
-.build/
-gradle/
-.project
-build.gradle
-gradle.properties
-gradlew
-gradlew.bat
-Happylists.iml
-local.properties
-settings.gradle
-/app/*
+*
 !/app/libs/
 !/app/src/
