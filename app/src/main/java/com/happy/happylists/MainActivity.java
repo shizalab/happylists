@@ -7,16 +7,12 @@ import android.database.Cursor;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,7 +22,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>,
-        View.OnClickListener, AdapterView.OnItemLongClickListener {
+        View.OnClickListener, AdapterView.OnItemLongClickListener, AdapterView.OnItemClickListener {
 
     static final String TAG = "myLogs";
     final int DIALOG_EXIT = 1;
@@ -35,9 +31,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     Button bt_new;
     ListView lvSS;
     SimpleCursorAdapter scAdapter;
-    Cursor spisCursor, cursor;
+    Cursor spisCursor;
     SwipeDismissListViewTouchListener touchListener;
-    DrawerLayout drawerLayout;
 
     int prodid, sn;
 
@@ -62,9 +57,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         CreateListSpisok();
 
         lvSS.setOnItemLongClickListener(this);
+        lvSS.setOnItemClickListener(this);
 
     }
 
+    // создание меню в actionBar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -80,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         return true;
     }
 
+    // выбор любого пункта с меню actionBar
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
@@ -111,6 +109,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    // нажатие на кнопку Создать
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -124,6 +124,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         }
     }
 
+    // Создание диалога с уточнением о удалении списка
     protected Dialog onCreateDialog(int id) {
         if (id == DIALOG_EXIT) {
             AlertDialog.Builder adb = new AlertDialog.Builder(this);
@@ -143,6 +144,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         return super.onCreateDialog(id);
     }
 
+    // диалог и его результат
     DialogInterface.OnClickListener myClickListener = new DialogInterface.OnClickListener() {
         public void onClick(DialogInterface dialog, int which) {
             switch (which) {
@@ -235,6 +237,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             Log.v(TAG,"OnLoadFinished: scAdapter is null");
     }
 
+    // закрытие окна
     protected void onDestroy() {
         super.onDestroy();
         spisCursor.close();
@@ -242,12 +245,14 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         db.close();
     }
 
+    // возрващение к окну
     @Override
     public void onRestart() {
         super.onRestart();
         getSupportLoaderManager().getLoader(0).forceLoad();
     }
 
+    // долгое нажатие на пункт в listview
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
         String btn = "Сохранить";
@@ -259,5 +264,14 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         return false;
     }
 
-
+    // просто нажатие на пункт в listview
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        int snid = (int) id;
+        TextView textView1 = (TextView) view.findViewById(R.id.tvSS);
+        Intent intent = new Intent(this, SpisPokyp.class);
+        intent.putExtra("snid", snid);
+        intent.putExtra("sname", textView1.getText().toString());
+        startActivity(intent);
+    }
 }

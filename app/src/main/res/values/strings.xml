@@ -29,6 +29,14 @@
     <string name="it06">Настройка</string>
     <string name="it07">Справочники</string>
 
+    <string name="add_prod">введите продукт</string>
+    <string name="Add">+</string>
+    <string name="etCount">кол-во</string>
+    <string name="acPE">ед-ца</string>
+    <string name="etPrice">цена</string>
+    <string name="chbvagno">важно</string>
+    <string name="Del">Удалить</string>
+    <string name="Sav">Сохранить</string>
 
 
 </resources>
