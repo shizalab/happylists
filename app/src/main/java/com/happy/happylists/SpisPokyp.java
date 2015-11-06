@@ -8,8 +8,8 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SimpleCursorAdapter;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -29,7 +29,7 @@ import android.widget.TextView;
 /**
  * Created by lukyanova on 04.11.15.
  */
-public class SpisPokyp extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class SpisPokyp extends ActionBarActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     static final String TAG = "myLogs";
 
@@ -57,8 +57,11 @@ public class SpisPokyp extends AppCompatActivity implements LoaderManager.Loader
         snName = getIntent().getExtras().getString("sname");
         int snid = getIntent().getExtras().getInt("snid");
         GetSN(snid);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(snName);
+
+        Toolbar mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
+        mActionBarToolbar.setTitle(snName);
+        mActionBarToolbar.setLogo(R.drawable.ic_action_menu);
+        setSupportActionBar(mActionBarToolbar);
 
         itog=(float) 0;
         etCount = (EditText) findViewById(R.id.etCount);
@@ -127,11 +130,11 @@ public class SpisPokyp extends AppCompatActivity implements LoaderManager.Loader
             cursor.close();
     }
 
-    // создание меню в actionBar
+    // создание меню в toolBar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //getMenuInflater().inflate(R.menu.menu_main, menu);
-        /*
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+       /*
         // Проверим доступность сети
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
@@ -149,25 +152,16 @@ public class SpisPokyp extends AppCompatActivity implements LoaderManager.Loader
         // Обработка выбранного элемента меню.
         switch (item.getItemId())
         {
-            case R.id.it01:
+            case R.id.it11:
 
                 return true;
-            case R.id.it02:
+            case R.id.it12:
 
                 return true;
-            case R.id.it03:
+            case R.id.it13:
 
                 return true;
-            case R.id.it04:
-
-                return true;
-            case R.id.it05:
-
-                return true;
-            case R.id.it06:
-
-                return true;
-            case R.id.it07:
+            case R.id.it14:
 
                 return true;
             default:

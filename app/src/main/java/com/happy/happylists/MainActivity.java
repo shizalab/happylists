@@ -8,10 +8,10 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SimpleCursorAdapter;
-import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,7 +21,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>,
+public class MainActivity extends ActionBarActivity implements LoaderManager.LoaderCallbacks<Cursor>,
         View.OnClickListener, AdapterView.OnItemLongClickListener, AdapterView.OnItemClickListener {
 
     static final String TAG = "myLogs";
@@ -41,10 +41,16 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(R.string.Spiski);
-        //стрелочка
-       // actionBar.setDisplayHomeAsUpEnabled(true);
+        Toolbar mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
+        mActionBarToolbar.setTitle(R.string.Spiski);
+
+        mActionBarToolbar.setLogo(R.drawable.ic_action_menu);
+        /*View logo = getLayoutInflater().inflate(R.layout.menulogo, null);
+        mActionBarToolbar.addView(logo);*/
+
+        setSupportActionBar(mActionBarToolbar);
+       // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+      //  getSupportActionBar().setHomeButtonEnabled(true);
 
         db = new DB(this);
         db.open();
@@ -61,12 +67,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     }
 
-    // создание меню в actionBar
+    // создание меню в toolBar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
-
-        /*
+       /*
         // Проверим доступность сети
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
@@ -77,37 +82,14 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         return true;
     }
 
-    // выбор любого пункта с меню actionBar
+    // нажатие на пункт в меню
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        // Обработка выбранного элемента меню.
-        switch (item.getItemId())
-        {
-            case R.id.it01:
-
-                return true;
-            case R.id.it02:
-
-                return true;
-            case R.id.it03:
-
-                return true;
-            case R.id.it04:
-
-                return true;
-            case R.id.it05:
-
-                return true;
-            case R.id.it06:
-
-                return true;
-            case R.id.it07:
-
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.it11) {
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     // нажатие на кнопку Создать
