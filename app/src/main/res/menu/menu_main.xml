@@ -1,66 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:Happylists="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+
+    <item android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/menu_overflow"
-        android:icon="@drawable/ic_action_menu"
+        android:icon="@drawable/ic_action_overflow"
         android:orderInCategory="11111"
-        Happylists:showAsAction="always"
+        app:showAsAction="always"
         android:title="@string/action_search">
         <menu>
 
         <item
-            android:id="@+id/it01"
+            android:id="@+id/it11"
             android:icon="@drawable/arrows"
-            Happylists:showAsAction="ifRoom"
-            android:title="@string/it01">
+            app:showAsAction="ifRoom"
+            android:title="@string/it11">
         </item>
 
         <item
-            android:id="@+id/it02"
-            android:icon="@drawable/arrows"
-            Happylists:showAsAction="never"
-            android:title="@string/it02">
+            android:id="@+id/it12"
+            android:icon="@drawable/sms"
+            app:showAsAction="ifRoom"
+            android:title="@string/it12">
         </item>
 
         <item
-            android:id="@+id/it03"
-            android:icon="@drawable/star"
-            Happylists:showAsAction="ifRoom"
-            android:title="@string/it03">
+            android:id="@+id/it13"
+            android:icon="@drawable/ic_action_email"
+            app:showAsAction="ifRoom"
+            android:title="@string/it13">
         </item>
 
         <item
-            android:id="@+id/it04"
-            android:icon="@drawable/men"
-            Happylists:showAsAction="ifRoom"
-            android:title="@string/it04">
+            android:id="@+id/it14"
+            android:icon="@drawable/ic_action_settings"
+            app:showAsAction="ifRoom"
+            android:title="@string/it14">
         </item>
 
-        <item
-            android:id="@+id/it05"
-            android:icon="@drawable/info25"
-            Happylists:showAsAction="ifRoom"
-            android:title="@string/it05">
-        </item>
-
-        <item
-            android:id="@+id/it06"
-            android:icon="@drawable/tools"
-            Happylists:showAsAction="ifRoom"
-            android:title="@string/it06">
-        </item>
-
-        <item
-            android:id="@+id/it07"
-            android:icon="@drawable/blocnote25"
-            Happylists:showAsAction="ifRoom"
-            android:title="@string/it07">
-        </item>
-
-
-        </menu>
+         </menu>
     </item>
 
 </menu>

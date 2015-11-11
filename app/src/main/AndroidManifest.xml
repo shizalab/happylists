@@ -29,6 +29,7 @@
             </intent-filter>
         </activity>
         <activity android:name="NewSpisok"></activity>
+        <activity android:name="SpisPokyp"></activity>
 
     </application>
 

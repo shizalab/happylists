@@ -80,7 +80,7 @@ public class DB {
 	}
 	// Ищем определенный список
 	public Cursor getSpisokId(int sid) {
-		return database.rawQuery("Select *  from spisok where _id ="+sid, null);
+		return database.rawQuery("Select * from spisok where _id ="+sid, null);
 	}
 
 // работа с Настройками
@@ -113,6 +113,53 @@ public class DB {
 		cv.put("sinch", si);
 		cv.put("napom", np);
 		database.update(DB_TABLE, cv, "sn = "+ sn, null);
+	}
+
+// работа с Продуктами
+	//получить все данные из таблицы DB_TABLE
+	public Cursor getProdName(String partialValue) {
+		if (partialValue != "")
+			return database.rawQuery("SELECT _ID, PNAME,eid FROM Products WHERE PNAME LIKE '%"+partialValue+"%'", null);
+		else
+			return database.rawQuery("SELECT _ID, PNAME,eid FROM Products", null);
+	}
+
+// работа с Единицами
+	//выбрать определенную единицу
+	public Cursor getProdED(long pid) {
+		return database.rawQuery("select ename from edin where _id= (SELECT eid FROM Products WHERE _id="+pid+")", null);
+	}
+	//получить все данные из таблицы DB_TABLE
+	public Cursor getEdinName(String partialValue) {
+		if (partialValue != "")
+			return database.rawQuery("SELECT _ID, ENAME FROM Edin WHERE ENAME LIKE '%"+partialValue+"%'", null);
+		else
+			return database.rawQuery("SELECT _ID, ENAME FROM Edin order by ENAME", null);
+	}
+
+// работа с Ценами
+	public Cursor getProdPrice(long pid) {
+		return database.rawQuery("select _id, prices from pprice where pid = "+pid, null);
+	}
+
+// работа со списком покупок
+	// получить все данные из таблицы Pokypka
+	public Cursor getSpisok(int sn) {
+		return database.rawQuery("Select s._id as _id, s.sn,p.pname,e.ename,s.skol,s.sprice,s.svagno,s.skorz,(select kcolor from kategor where _id=p.kid ) as kc,(select abv from valuta where _id=sp.vid) as abv from Pokypka s, products p, Edin e , Spisok sp where s.pid=p._id and s.eid=e._id and s.sn = "+sn+" and s.sn=sp.sn order by skorz,p.kid", null);
+}
+	//получить имя списка из таблицы DB_TABLE
+	public Cursor getSkorSpisok(long id) {
+		return database.rawQuery("select _id, skorz,skol,sprice from Pokypka where _id = "+id, null);
+	}
+	//обновить запись в/из корзины
+	public void UpDateKSp(String DB_TABLE,int txt,long id) {
+		ContentValues cv = new ContentValues();
+		cv.put("skorz", txt);
+		database.update(DB_TABLE, cv, "_id = "+ id, null);
+	}
+	//сумма всех купленных продуктов
+	public Cursor getSumInKor(int sn) {
+		return database.rawQuery("select (skol*sprice) as sm from Pokypka where skorz=1 and snom="+sn, null);
 	}
 
 }
