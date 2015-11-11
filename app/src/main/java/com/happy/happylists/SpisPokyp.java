@@ -46,6 +46,7 @@ public class SpisPokyp extends AppCompatActivity implements LoaderManager.Loader
     Cursor spprCursor,prodCursor,edinCursor,cursor,spisCursor2;
     SimpleCursorAdapter spAdapter,pcAdapter,ecAdapter;
     Button btnAdd,btDel,btSave;
+    ActionBar actionBar;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +58,8 @@ public class SpisPokyp extends AppCompatActivity implements LoaderManager.Loader
         snName = getIntent().getExtras().getString("sname");
         int snid = getIntent().getExtras().getInt("snid");
         GetSN(snid);
-        ActionBar actionBar = getSupportActionBar();
+
+        actionBar = getSupportActionBar();
         actionBar.setTitle(snName);
 
         itog=(float) 0;
@@ -149,25 +151,16 @@ public class SpisPokyp extends AppCompatActivity implements LoaderManager.Loader
         // Обработка выбранного элемента меню.
         switch (item.getItemId())
         {
-            case R.id.it01:
+            case R.id.it11:
 
                 return true;
-            case R.id.it02:
+            case R.id.it12:
 
                 return true;
-            case R.id.it03:
+            case R.id.it13:
 
                 return true;
-            case R.id.it04:
-
-                return true;
-            case R.id.it05:
-
-                return true;
-            case R.id.it06:
-
-                return true;
-            case R.id.it07:
+            case R.id.it14:
 
                 return true;
             default:

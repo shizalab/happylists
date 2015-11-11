@@ -80,7 +80,7 @@ public class DB {
 	}
 	// Ищем определенный список
 	public Cursor getSpisokId(int sid) {
-		return database.rawQuery("Select sn from spisok where _id ="+sid, null);
+		return database.rawQuery("Select * from spisok where _id ="+sid, null);
 	}
 
 // работа с Настройками
