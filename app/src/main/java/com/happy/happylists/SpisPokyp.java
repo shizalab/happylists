@@ -323,7 +323,6 @@ public class SpisPokyp extends AppCompatActivity implements LoaderManager.Loader
                 ecAdapter.getFilter().filter(s.toString());
             }
         });
-        // РЎРѕР±С‹С‚РёРµ РїСЂРё РІС‹Р±РѕСЂРµ СЌР»РµРјРµРЅС‚Р°
         acPE.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView<?> adapter, View view, int index, long id) {
                 //  Object itemPostion = (Object) adapter.getItemAtPosition(index);

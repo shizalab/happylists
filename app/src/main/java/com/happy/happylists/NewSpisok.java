@@ -39,7 +39,6 @@ public class NewSpisok extends Activity implements View.OnClickListener, RadioGr
         setContentView(R.layout.newspisok);
 
         btnName = getIntent().getExtras().getString("btn");
-        //snid = Integer.parseInt(getIntent().getStringExtra("snid"));
         snid = getIntent().getExtras().getInt("snid");
 
         db = new DB(this);
@@ -150,7 +149,7 @@ public class NewSpisok extends Activity implements View.OnClickListener, RadioGr
     }
 
     private void OpenNew() {
-        etName.setText("Список " + sn);
+        etName.setText(getResources().getString(R.string.spisok) +" "+ sn);
         etOpis.setText("");
         rg.setVisibility(View.VISIBLE);
         tvType.setVisibility(View.VISIBLE);

@@ -3,11 +3,12 @@ package com.happy.happylists;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.database.Cursor;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.ActionBarActivity;
@@ -19,13 +20,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 public class MainActivity extends ActionBarActivity implements LoaderManager.LoaderCallbacks<Cursor>,
-        View.OnClickListener, AdapterView.OnItemLongClickListener, AdapterView.OnItemClickListener {
+        View.OnClickListener, AdapterView.OnItemLongClickListener, AdapterView.OnItemClickListener, NavigationView.OnNavigationItemSelectedListener {
 
     static final String TAG = "myLogs";
     final int DIALOG_EXIT = 1;
@@ -37,14 +37,10 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
     Cursor spisCursor;
     SwipeDismissListViewTouchListener touchListener;
 
-    private String[] viewsNames;
     private DrawerLayout myDrawerLayout;
-    private ListView myDrawerList;
-    private ActionBarDrawerToggle myDrawerToggle;
-    // navigation drawer title
-    private CharSequence myDrawerTitle;
-    // used to store app title
-    private CharSequence myTitle;
+    private NavigationView nv;
+    private android.support.v7.app.ActionBar actionBar;
+    private ActionBarDrawerToggle toggle;
 
     int prodid, sn;
 
@@ -54,33 +50,27 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
         setContentView(R.layout.main);
 
         //начало процедуры отрисовки левого меню
-        getSupportActionBar().setTitle(R.string.Spiski);
-        myDrawerTitle = getResources().getString(R.string.menu);
-        viewsNames = getResources().getStringArray(R.array.views_array);
-        myDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        myDrawerList = (ListView) findViewById(R.id.left_drawer);
-        myDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, viewsNames));
-        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar = getSupportActionBar();
+        actionBar.setTitle(R.string.Spiski);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        myDrawerToggle = new ActionBarDrawerToggle(this, myDrawerLayout,
-                R.string.open_menu,
-                R.string.close_menu
-        ) {
+        myDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        toggle = new ActionBarDrawerToggle(this, myDrawerLayout, R.string.open_menu, R.string.close_menu){
             public void onDrawerClosed(View view) {
-                getSupportActionBar().setTitle(R.string.Spiski);
+                actionBar.setTitle(R.string.Spiski);
                 // calling onPrepareOptionsMenu() to show action bar icons
                 invalidateOptionsMenu();
             }
-
-            public void onDrawerOpened(View drawerView) {
-                getSupportActionBar().setTitle(myDrawerTitle);
+           public void onDrawerOpened(View drawerView) {
+                getSupportActionBar().setTitle("");
                 // calling onPrepareOptionsMenu() to hide action bar icons
                 invalidateOptionsMenu();
             }
         };
-        myDrawerLayout.setDrawerListener(myDrawerToggle);
-        myDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-        //конец процедуры отрисовки левого меню
+        myDrawerLayout.setDrawerListener(toggle);
+        toggle.syncState();
+        nv = (NavigationView) findViewById(R.id.navigation);
+        nv.setNavigationItemSelectedListener(this);
+         //конец процедуры отрисовки левого меню
 
         db = new DB(this);
         db.open();
@@ -98,49 +88,36 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
     }
 
     //начало процедуры отрисовки левого меню
-    //нажатие на пункт левого меню
-    private class DrawerItemClickListener implements ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(
-                AdapterView<?> parent, View view, int position, long id
-        ) {
-            // display view for selected nav drawer item
-            selectItem(position);
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem menuItem) {
+        menuItem.setChecked(true);
+        myDrawerLayout.closeDrawers();
+        switch (menuItem.getItemId())
+        {
+            case R.id.it01:
+                Log.d(TAG, "it01");
+                return true;
+            case R.id.it02:
+                Log.d(TAG, "it02");
+                return true;
+            case R.id.it03:
+                Log.d(TAG, "it03");
+                return true;
+            case R.id.it04:
+                Log.d(TAG, "it04");
+                return true;
+            case R.id.it05:
+                Log.d(TAG, "it05");
+                return true;
+            case R.id.it06:
+                Log.d(TAG, "it06");
+                return true;
+            case R.id.it07:
+                Log.d(TAG, "it07");
+                return true;
         }
-    }
-    //выполнение нажатого пункта слева
-    private void selectItem(int position) {
-        // update the main content by replacing fragments
-        switch (position) {
-            case 0:
-                Log.d(TAG, "Синхронизировать");
-                break;
-            case 1:
-                Log.d(TAG, "Горячая синхронизация");
-                break;
-            case 2:
-                Log.d(TAG, "Оценить приложение");
-                break;
-            case 3:
-                Log.d(TAG, "Аккаунт");
-                break;
-            case 4:
-                Log.d(TAG, "Инфо");
-                break;
-            case 5:
-                Log.d(TAG, "Настройка");
-                break;
-            case 6:
-                Log.d(TAG, "Справочники");
-                break;
-            default:
-                break;
-        }
-        // update selected item and title, then close the drawer
-        myDrawerList.setItemChecked(position, true);
-        myDrawerList.setSelection(position);
-        setTitle(viewsNames[position]);
-        myDrawerLayout.closeDrawer(myDrawerList);
+        return false;
     }
     // создание меню в actionBar
     @Override
@@ -161,7 +138,7 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
-        if (myDrawerToggle.onOptionsItemSelected(item)) {
+        if (toggle.onOptionsItemSelected(item)) {
             return true;
         }
         // Обработка выбранного элемента меню.
@@ -183,33 +160,24 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
                 return super.onOptionsItemSelected(item);
         }
     }
+     //конец процедуры отрисовки левого меню
+
     @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        // if navigation drawer is opened, hide the action items
-        boolean drawerOpen = myDrawerLayout.isDrawerOpen(myDrawerList);
-        menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
-        return super.onPrepareOptionsMenu(menu);
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        // Sync the toggle state after onRestoreInstanceState has occurred.
-        myDrawerToggle.syncState();
-    }
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        // Pass any configuration change to the drawer toggls
-        myDrawerToggle.onConfigurationChanged(newConfig);
-    }
-    //конец процедуры отрисовки левого меню
 
     // нажатие на кнопку Создать
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bt_new:
-                String btn = "Создать";
+                String btn = getResources().getString(R.string.sozd);
                 Intent intent = new Intent(this, NewSpisok.class);
                 intent.putExtra("snid", "0");
                 intent.putExtra("btn", btn);
@@ -349,7 +317,7 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
     // долгое нажатие на пункт в listview
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        String btn = "Сохранить";
+        String btn = getResources().getString(R.string.Sav);
         int snid = (int) id;
         Intent intentns = new Intent(this, NewSpisok.class);
         intentns.putExtra("snid", snid);
