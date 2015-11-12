@@ -21,13 +21,24 @@
     <string name="cbNapom">Напоминание</string>
     <string name="cbSin">Добавить к синхронизации</string>
 
-    <string name="it01">Синхронизировать</string>
-    <string name="it02">Горячая синхронизация</string>
-    <string name="it03">Оценить приложение</string>
-    <string name="it04">Аккаунт</string>
-    <string name="it05">Инфо</string>
-    <string name="it06">Настройка</string>
-    <string name="it07">Справочники</string>
+    <string name="action_settings">Settings</string>
+    <string-array name="views_array">
+        <item>Синхронизировать</item>
+        <item>Горячая синхронизация</item>
+        <item>Оценить приложение</item>
+        <item>Аккаунт</item>
+        <item>Инфо</item>
+        <item>Настройка</item>
+        <item>Справочники</item>
+    </string-array>
+    <string name="menu">Меню</string>
+    <string name="open_menu">Open</string>
+    <string name="close_menu">Close</string>
+
+    <string name="it11">Синхронизировать список</string>
+    <string name="it12">Отправить как СМС</string>
+    <string name="it13">Отправить по E-mail</string>
+    <string name="it14">Настройки списка</string>
 
     <string name="add_prod">введите продукт</string>
     <string name="Add">+</string>

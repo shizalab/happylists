@@ -3,25 +3,28 @@ package com.happy.happylists;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SimpleCursorAdapter;
-import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>,
+public class MainActivity extends ActionBarActivity implements LoaderManager.LoaderCallbacks<Cursor>,
         View.OnClickListener, AdapterView.OnItemLongClickListener, AdapterView.OnItemClickListener {
 
     static final String TAG = "myLogs";
@@ -34,6 +37,15 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     Cursor spisCursor;
     SwipeDismissListViewTouchListener touchListener;
 
+    private String[] viewsNames;
+    private DrawerLayout myDrawerLayout;
+    private ListView myDrawerList;
+    private ActionBarDrawerToggle myDrawerToggle;
+    // navigation drawer title
+    private CharSequence myDrawerTitle;
+    // used to store app title
+    private CharSequence myTitle;
+
     int prodid, sn;
 
     @Override
@@ -41,10 +53,34 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(R.string.Spiski);
-        //стрелочка
-       // actionBar.setDisplayHomeAsUpEnabled(true);
+        //начало процедуры отрисовки левого меню
+        getSupportActionBar().setTitle(R.string.Spiski);
+        myDrawerTitle = getResources().getString(R.string.menu);
+        viewsNames = getResources().getStringArray(R.array.views_array);
+        myDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        myDrawerList = (ListView) findViewById(R.id.left_drawer);
+        myDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, viewsNames));
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        myDrawerToggle = new ActionBarDrawerToggle(this, myDrawerLayout,
+                R.string.open_menu,
+                R.string.close_menu
+        ) {
+            public void onDrawerClosed(View view) {
+                getSupportActionBar().setTitle(R.string.Spiski);
+                // calling onPrepareOptionsMenu() to show action bar icons
+                invalidateOptionsMenu();
+            }
+
+            public void onDrawerOpened(View drawerView) {
+                getSupportActionBar().setTitle(myDrawerTitle);
+                // calling onPrepareOptionsMenu() to hide action bar icons
+                invalidateOptionsMenu();
+            }
+        };
+        myDrawerLayout.setDrawerListener(myDrawerToggle);
+        myDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+        //конец процедуры отрисовки левого меню
 
         db = new DB(this);
         db.open();
@@ -61,6 +97,51 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     }
 
+    //начало процедуры отрисовки левого меню
+    //нажатие на пункт левого меню
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(
+                AdapterView<?> parent, View view, int position, long id
+        ) {
+            // display view for selected nav drawer item
+            selectItem(position);
+        }
+    }
+    //выполнение нажатого пункта слева
+    private void selectItem(int position) {
+        // update the main content by replacing fragments
+        switch (position) {
+            case 0:
+                Log.d(TAG, "Синхронизировать");
+                break;
+            case 1:
+                Log.d(TAG, "Горячая синхронизация");
+                break;
+            case 2:
+                Log.d(TAG, "Оценить приложение");
+                break;
+            case 3:
+                Log.d(TAG, "Аккаунт");
+                break;
+            case 4:
+                Log.d(TAG, "Инфо");
+                break;
+            case 5:
+                Log.d(TAG, "Настройка");
+                break;
+            case 6:
+                Log.d(TAG, "Справочники");
+                break;
+            default:
+                break;
+        }
+        // update selected item and title, then close the drawer
+        myDrawerList.setItemChecked(position, true);
+        myDrawerList.setSelection(position);
+        setTitle(viewsNames[position]);
+        myDrawerLayout.closeDrawer(myDrawerList);
+    }
     // создание меню в actionBar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -76,39 +157,52 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         shareMenuItem.setVisible(isNetworkAvailable);*/
         return true;
     }
-
     // выбор любого пункта с меню actionBar
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
+        if (myDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
         // Обработка выбранного элемента меню.
         switch (item.getItemId())
         {
-            case R.id.it01:
-
+            case R.id.it11:
+                Log.d(TAG, "Синхронизировать список");
                 return true;
-            case R.id.it02:
-
+            case R.id.it12:
+                Log.d(TAG, "Отправить как СМС");
                 return true;
-            case R.id.it03:
-
+            case R.id.it13:
+                Log.d(TAG, "Отправить по E-mail");
                 return true;
-            case R.id.it04:
-
-                return true;
-            case R.id.it05:
-
-                return true;
-            case R.id.it06:
-
-                return true;
-            case R.id.it07:
-
+            case R.id.it14:
+                Log.d(TAG, "Настройки списка");
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        // if navigation drawer is opened, hide the action items
+        boolean drawerOpen = myDrawerLayout.isDrawerOpen(myDrawerList);
+        menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
+        return super.onPrepareOptionsMenu(menu);
+    }
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        myDrawerToggle.syncState();
+    }
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        // Pass any configuration change to the drawer toggls
+        myDrawerToggle.onConfigurationChanged(newConfig);
+    }
+    //конец процедуры отрисовки левого меню
 
     // нажатие на кнопку Создать
     @Override
@@ -257,11 +351,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
         String btn = "Сохранить";
         int snid = (int) id;
-        Intent intent = new Intent(this, NewSpisok.class);
-        intent.putExtra("snid", snid);
-        intent.putExtra("btn", btn);
-        startActivity(intent);
-        return false;
+        Intent intentns = new Intent(this, NewSpisok.class);
+        intentns.putExtra("snid", snid);
+        intentns.putExtra("btn", btn);
+        startActivity(intentns);
+        return true;
     }
 
     // просто нажатие на пункт в listview
@@ -269,9 +363,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         int snid = (int) id;
         TextView textView1 = (TextView) view.findViewById(R.id.tvSS);
-        Intent intent = new Intent(this, SpisPokyp.class);
-        intent.putExtra("snid", snid);
-        intent.putExtra("sname", textView1.getText().toString());
-        startActivity(intent);
+        Intent intentsp = new Intent(this, SpisPokyp.class);
+        intentsp.putExtra("snid", snid);
+        intentsp.putExtra("sname", textView1.getText().toString());
+        startActivity(intentsp);
     }
 }
