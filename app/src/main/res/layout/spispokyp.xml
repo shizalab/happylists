@@ -5,7 +5,6 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:background="@drawable/listsback">
-    <include layout="@layout/toolbar" />
 
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -140,7 +139,7 @@
             android:paddingLeft="15sp"
             android:paddingTop="10sp"
             android:ems="10"
-            android:text="Итого в корзине:"
+            android:text="РС‚РѕРіРѕ РІ РєРѕСЂР·РёРЅРµ:"
             android:textColor="#000000"
             android:textSize="20sp" />
 

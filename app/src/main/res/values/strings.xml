@@ -40,11 +40,6 @@
     <string name="it13">Отправить по E-mail</string>
     <string name="it14">Настройки списка</string>
 
-    <string name="it11">Синхронизировать список</string>
-    <string name="it12">Отправить как СМС</string>
-    <string name="it13">Отправить по E-mail</string>
-    <string name="it14">Настройка списка</string>
-
     <string name="add_prod">введите продукт</string>
     <string name="Add">+</string>
     <string name="etCount">кол-во</string>
