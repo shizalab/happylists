@@ -39,7 +39,6 @@ public class NewSpisok extends Activity implements View.OnClickListener, RadioGr
         setContentView(R.layout.newspisok);
 
         btnName = getIntent().getExtras().getString("btn");
-        //snid = Integer.parseInt(getIntent().getStringExtra("snid"));
         snid = getIntent().getExtras().getInt("snid");
 
         db = new DB(this);
@@ -76,8 +75,6 @@ public class NewSpisok extends Activity implements View.OnClickListener, RadioGr
                 else {
                     if (snid == 0) {
                          addNewSpisok();
-                        /*Intent intent = new Intent(this, NewSpisok.class);
-                        startActivity(intent);*/
                     } else
                         updateSpisok();
                     finish();
@@ -150,7 +147,7 @@ public class NewSpisok extends Activity implements View.OnClickListener, RadioGr
     }
 
     private void OpenNew() {
-        etName.setText("Список " + sn);
+        etName.setText(getResources().getString(R.string.spisok) +" "+ sn);
         etOpis.setText("");
         rg.setVisibility(View.VISIBLE);
         tvType.setVisibility(View.VISIBLE);
@@ -243,7 +240,7 @@ public class NewSpisok extends Activity implements View.OnClickListener, RadioGr
             } while (cursor.moveToNext());
         }
         cursor.close();
-        //Log.d(TAG, "addNewSpisok: sn="+sn+", name="+etName.getText().toString()+", opis="+etOpis.getText().toString()+", type="+stype+", hu="+hu);
+        Log.d(TAG, "addNewSpisok: sn="+sn+", name="+etName.getText().toString()+", opis="+etOpis.getText().toString()+", type="+stype+", hu="+hu);
         //добавляем новый список в базу
         db.addNewSpisok("Spisok", sn, etName.getText().toString(),etOpis.getText().toString(),stype,hu);
         // в зависимости от типа списка прописываем категорию

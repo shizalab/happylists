@@ -1,15 +1,19 @@
 package com.happy.happylists;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SimpleCursorAdapter;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -29,7 +33,8 @@ import android.widget.TextView;
 /**
  * Created by lukyanova on 04.11.15.
  */
-public class SpisPokyp extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class SpisPokyp extends ActionBarActivity implements LoaderManager.LoaderCallbacks<Cursor>,
+        NavigationView.OnNavigationItemSelectedListener {
 
     static final String TAG = "myLogs";
 
@@ -46,21 +51,47 @@ public class SpisPokyp extends AppCompatActivity implements LoaderManager.Loader
     Cursor spprCursor,prodCursor,edinCursor,cursor,spisCursor2;
     SimpleCursorAdapter spAdapter,pcAdapter,ecAdapter;
     Button btnAdd,btDel,btSave;
-    ActionBar actionBar;
+
+    private android.support.v7.app.ActionBar actionBar;
+    private DrawerLayout myDrawerLayout;
+    private ActionBarDrawerToggle toggle;
+    private NavigationView nv;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.spispokyp);
 
+        snName = getIntent().getExtras().getString("sname");
+        int snid = getIntent().getExtras().getInt("snid");
+
+        //начало процедуры отрисовки левого меню
+        actionBar = getSupportActionBar();
+        actionBar.setTitle(snName);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        myDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        myDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        toggle = new ActionBarDrawerToggle(this, myDrawerLayout, R.string.open_menu, R.string.close_menu){
+            public void onDrawerClosed(View view) {
+                actionBar.setTitle(snName);
+                // calling onPrepareOptionsMenu() to show action bar icons
+                invalidateOptionsMenu();
+            }
+            public void onDrawerOpened(View drawerView) {
+                getSupportActionBar().setTitle("");
+                // calling onPrepareOptionsMenu() to hide action bar icons
+                invalidateOptionsMenu();
+            }
+        };
+        myDrawerLayout.setDrawerListener(toggle);
+        toggle.syncState();
+        nv = (NavigationView) findViewById(R.id.navigation);
+        nv.setNavigationItemSelectedListener(this);
+        //конец процедуры отрисовки левого меню
+
         db = new DB(this);
         db.open();
 
-        snName = getIntent().getExtras().getString("sname");
-        int snid = getIntent().getExtras().getInt("snid");
         GetSN(snid);
-
-        actionBar = getSupportActionBar();
-        actionBar.setTitle(snName);
 
         itog=(float) 0;
         etCount = (EditText) findViewById(R.id.etCount);
@@ -83,6 +114,91 @@ public class SpisPokyp extends AppCompatActivity implements LoaderManager.Loader
         CreateListProducts(); //список всех продуктов со справочника
         tvItog.setText(String.format("%.2f",itog));
 
+    }
+
+    //начало процедуры отрисовки левого меню
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem menuItem) {
+        menuItem.setChecked(true);
+        myDrawerLayout.closeDrawers();
+        switch (menuItem.getItemId())
+        {
+             case R.id.it01:
+                Log.d(TAG, "it01");
+                return true;
+            case R.id.it02:
+                Log.d(TAG, "it02");
+                return true;
+            case R.id.it03:
+                Log.d(TAG, "it03");
+                return true;
+            case R.id.it04:
+                Log.d(TAG, "it04");
+                return true;
+            case R.id.it05:
+                Log.d(TAG, "it05");
+                return true;
+            case R.id.it06:
+                Log.d(TAG, "it06");
+                return true;
+            case R.id.it07:
+                Log.d(TAG, "it07");
+                return true;
+        }
+        return false;
+    }
+    // создание меню в actionBar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        /*
+        // Проверим доступность сети
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        boolean isNetworkAvailable = activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
+        // Установим видимость кнопке Поделиться
+        MenuItem shareMenuItem = menu.findItem(R.id.it02);
+        shareMenuItem.setVisible(isNetworkAvailable);*/
+        return true;
+    }
+    // выбор любого пункта с меню actionBar
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        if (toggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        // Обработка выбранного элемента меню.
+        switch (item.getItemId())
+        {
+            case R.id.it11:
+                Log.d(TAG, "Синхронизировать список");
+                return true;
+            case R.id.it12:
+                Log.d(TAG, "Отправить как СМС");
+                return true;
+            case R.id.it13:
+                Log.d(TAG, "Отправить по E-mail");
+                return true;
+            case R.id.it14:
+                Log.d(TAG, "Настройки списка");
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    //конец процедуры отрисовки левого меню
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     //Чистка
@@ -122,50 +238,12 @@ public class SpisPokyp extends AppCompatActivity implements LoaderManager.Loader
                 int ssn = cursor.getColumnIndex("sn");
                 cursor.moveToFirst();
                 do {
-                    if (!cursor.isNull(ssn))
+                    if (!cursor.isNull(ssn)) {
                         sn = Integer.parseInt(cursor.getString(ssn));
+                    }
                 } while (cursor.moveToNext());
             }
             cursor.close();
-    }
-
-    // создание меню в actionBar
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        //getMenuInflater().inflate(R.menu.menu_main, menu);
-        /*
-        // Проверим доступность сети
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        boolean isNetworkAvailable = activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
-        // Установим видимость кнопке Поделиться
-        MenuItem shareMenuItem = menu.findItem(R.id.it02);
-        shareMenuItem.setVisible(isNetworkAvailable);*/
-        return true;
-    }
-
-    // выбор любого пункта с меню actionBar
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        // Обработка выбранного элемента меню.
-        switch (item.getItemId())
-        {
-            case R.id.it11:
-
-                return true;
-            case R.id.it12:
-
-                return true;
-            case R.id.it13:
-
-                return true;
-            case R.id.it14:
-
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
     // закрытие окна
@@ -316,18 +394,19 @@ public class SpisPokyp extends AppCompatActivity implements LoaderManager.Loader
         acPE.addTextChangedListener(new TextWatcher() {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
+
             public void beforeTextChanged(CharSequence s, int start, int count,
                                           int after) {
             }
+
             public void afterTextChanged(Editable s) {
                 ecAdapter.getFilter().filter(s.toString());
             }
         });
-        // РЎРѕР±С‹С‚РёРµ РїСЂРё РІС‹Р±РѕСЂРµ СЌР»РµРјРµРЅС‚Р°
-        acPE.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        acPE.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> adapter, View view, int index, long id) {
                 //  Object itemPostion = (Object) adapter.getItemAtPosition(index);
-             }
+            }
         });
     }
 
@@ -525,4 +604,5 @@ public class SpisPokyp extends AppCompatActivity implements LoaderManager.Loader
         else
             Log.v(TAG,"OnLoadFinished: spAdapter is null");
     }
+
 }

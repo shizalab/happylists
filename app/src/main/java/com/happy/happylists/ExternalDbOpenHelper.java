@@ -8,6 +8,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -114,7 +118,6 @@ public class ExternalDbOpenHelper extends SQLiteOpenHelper {
     public synchronized void close() {
         if (database != null) {
             database.close();
-            //Log.d(TAG, "закрываем БД");
         }
         super.close();
     }

@@ -3,12 +3,17 @@
     <string name="action_search">Search</string>
 
     <string name="Spiski">Списки</string>
+    <string name="spisok">Список </string>
     <string name="btSS">+ Новый список</string>
+    <string name="sozd">Создать</string>
 
     <string name="Titl">Удаление</string>
     <string name="delete_record">Вы уверены, что хотите удалить список?</string>
     <string name="yes">Да</string>
     <string name="cancel">Отмена</string>
+
+    <string name="open_menu">Open</string>
+    <string name="close_menu">Close</string>
 
     <string name="etName">Название списка</string>
     <string name="etOpis">Описание</string>
@@ -21,19 +26,13 @@
     <string name="cbNapom">Напоминание</string>
     <string name="cbSin">Добавить к синхронизации</string>
 
-    <string name="action_settings">Settings</string>
-    <string-array name="views_array">
-        <item>Синхронизировать</item>
-        <item>Горячая синхронизация</item>
-        <item>Оценить приложение</item>
-        <item>Аккаунт</item>
-        <item>Инфо</item>
-        <item>Настройка</item>
-        <item>Справочники</item>
-    </string-array>
-    <string name="menu">Меню</string>
-    <string name="open_menu">Open</string>
-    <string name="close_menu">Close</string>
+    <string name="it01">Синхронизировать</string>
+    <string name="it02">Горячая синхронизация</string>
+    <string name="it03">Оценить приложение</string>
+    <string name="it04">Аккаунт</string>
+    <string name="it05">Инфо</string>
+    <string name="it06">Настройка</string>
+    <string name="it07">Справочники</string>
 
     <string name="it11">Синхронизировать список</string>
     <string name="it12">Отправить как СМС</string>
@@ -46,6 +45,7 @@
     <string name="acPE">ед-ца</string>
     <string name="etPrice">цена</string>
     <string name="chbvagno">важно</string>
+    <string name="tvItogtxt">Итого в корзине:</string>
     <string name="Del">Удалить</string>
     <string name="Sav">Сохранить</string>
 
