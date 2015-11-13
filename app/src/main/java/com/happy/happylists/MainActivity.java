@@ -25,7 +25,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public class MainActivity extends ActionBarActivity implements LoaderManager.LoaderCallbacks<Cursor>,
-        View.OnClickListener, AdapterView.OnItemLongClickListener, AdapterView.OnItemClickListener, NavigationView.OnNavigationItemSelectedListener {
+        View.OnClickListener, AdapterView.OnItemLongClickListener, AdapterView.OnItemClickListener,
+        NavigationView.OnNavigationItemSelectedListener {
 
     static final String TAG = "myLogs";
     final int DIALOG_EXIT = 1;
@@ -81,6 +82,7 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
         bt_new.setOnClickListener(this);
 
         CreateListSpisok();
+        UpdateDateIn();
 
         lvSS.setOnItemLongClickListener(this);
         lvSS.setOnItemClickListener(this);
@@ -122,11 +124,9 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
     // создание меню в actionBar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
 
-        /*
         // Проверим доступность сети
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        /*ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         boolean isNetworkAvailable = activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
         // Установим видимость кнопке Поделиться
@@ -141,24 +141,7 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
         if (toggle.onOptionsItemSelected(item)) {
             return true;
         }
-        // Обработка выбранного элемента меню.
-        switch (item.getItemId())
-        {
-            case R.id.it11:
-                Log.d(TAG, "Синхронизировать список");
-                return true;
-            case R.id.it12:
-                Log.d(TAG, "Отправить как СМС");
-                return true;
-            case R.id.it13:
-                Log.d(TAG, "Отправить по E-mail");
-                return true;
-            case R.id.it14:
-                Log.d(TAG, "Настройки списка");
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+        return super.onOptionsItemSelected(item);
     }
      //конец процедуры отрисовки левого меню
 
@@ -335,5 +318,20 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
         intentsp.putExtra("snid", snid);
         intentsp.putExtra("sname", textView1.getText().toString());
         startActivity(intentsp);
+    }
+
+    //процедура обновления поля date_in во всех таблицах в новосозданной базе.
+    private void UpdateDateIn() {
+        Cursor cursor = db.getUsdat();
+        if (cursor.getCount() > 0) {
+            int ud= cursor.getColumnIndex("date_in");
+            cursor.moveToFirst();
+            do {
+                if (cursor.isNull(ud)) {  //выполняем, если пустое значение
+                    db.updDateIn();  // БЕЗ ТАБЛИЦЫ TASK!!!!
+                     }
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
     }
 }

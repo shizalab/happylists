@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 public class DB {
 	
@@ -38,6 +39,27 @@ public class DB {
 	public Cursor getUserID() {
 		return database.rawQuery("select _id from Huser ", null);
 	}
+	public Cursor getUsdat() {
+		return database.rawQuery("select date_in from Huser", null);
+	}
+
+// работа над над всей базой
+
+	//Обновление поля date_in по всей базе
+	public void updDateIn() {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss");
+		String datetime = sdf.format(new Date(System.currentTimeMillis()));
+		ContentValues cv = new ContentValues();
+		cv.put("date_in", datetime);
+		database.update("edin", cv, "_id in (select _id from edin) ", null);
+		database.update("huser", cv, "_id in (select _id from huser) ", null);
+		database.update("kategor", cv, "_id in (select _id from kategor) ", null);
+		database.update("pprice", cv, "_id in (select _id from pprice) ", null);
+		database.update("products", cv, "_id in (select _id from products) ", null);
+	}
+
+// работа с Синхронизацией: поле sinxr, где 0 - изменено и не передано, 1 - передано.
+
 
 // работа над Списками список
 
@@ -48,15 +70,19 @@ public class DB {
  	 // добавить запись в таблицу Список
  	 public void addNewSpisok(String DB_TABLE, int snom,String snam, String sopis,int stype,int usid ) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-		String datetime = sdf.format(new Date(System.currentTimeMillis()));
+		String date = sdf.format(new Date(System.currentTimeMillis()));
+		SimpleDateFormat sdtf = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss");
+		String datetime = sdtf.format(new Date(System.currentTimeMillis()));
 		ContentValues cv = new ContentValues();
 		cv.put("sn", snom);
 		cv.put("sname", snam);
     	cv.put("sopis", sopis);
 		cv.put("stype", stype);
-		cv.put("sdate", datetime);
+		cv.put("sdate", date);
 		cv.put("vid", 4);
 		cv.put("usid", usid);
+		cv.put("date_in", datetime);
+		cv.put("sinxr", 0);
 		database.insert(DB_TABLE, null, cv);
   	}
 	// добавить запись в таблицу Список
@@ -87,6 +113,8 @@ public class DB {
 
 	// Добавить новую настройку для нового списка
 	public void addNewNastr(String DB_TABLE, int snom, int kg, int kl,int pr,int vl,int ui,int si,int np) {
+		SimpleDateFormat sdtf = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss");
+		String datetime = sdtf.format(new Date(System.currentTimeMillis()));
 		ContentValues cv = new ContentValues();
 		cv.put("sn", snom);
 		cv.put("kateg", kg);
@@ -97,6 +125,8 @@ public class DB {
 		cv.put("usid", ui);
 		cv.put("sinch", si);
 		cv.put("napom", np);
+		cv.put("date_in", datetime);
+		cv.put("sinxr", 0);
 		database.insert(DB_TABLE, null, cv);
 	}
 	//открыть настройку для указанного списка
@@ -105,6 +135,8 @@ public class DB {
 	}
 	//обновить настройку для списка
 	public void UpDateNastr(String DB_TABLE, int sn, int kl,int pr,int vl,int ui,int si,int np) {
+		SimpleDateFormat sdtf = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss");
+		String datetime = sdtf.format(new Date(System.currentTimeMillis()));
 		ContentValues cv = new ContentValues();
 		cv.put("kolvo", kl);
 		cv.put("price", pr);
@@ -112,6 +144,8 @@ public class DB {
 		cv.put("usid", ui);
 		cv.put("sinch", si);
 		cv.put("napom", np);
+		cv.put("date_in", datetime);
+		cv.put("sinxr", 0);
 		database.update(DB_TABLE, cv, "sn = "+ sn, null);
 	}
 
