@@ -6,8 +6,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:fitsSystemWindows="true"
-    android:background="@drawable/listsback">
+    android:fitsSystemWindows="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,7 +28,6 @@
             android:layout_marginBottom="15sp"
             android:layout_marginRight="10sp"
             android:layout_marginLeft="10sp"
-            android:background="@drawable/customborder"
             android:layout_weight="1.1"
             android:completionThreshold="3"
             android:hint="@string/add_prod" >
@@ -40,7 +38,6 @@
             android:id="@+id/btnAdd"
             android:layout_width="47sp"
             android:layout_height="wrap_content"
-            android:background="@drawable/roundbtn"
             android:textColor="#FFFFFF"
             android:layout_marginRight="10sp"
             android:layout_marginTop="1sp"

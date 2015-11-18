@@ -49,5 +49,9 @@
     <string name="Del">Удалить</string>
     <string name="Sav">Сохранить</string>
 
+    <string name="tvColor">Выберите цветовую тематику:</string>
+    <string name="rbColorN">Ночь</string>
+    <string name="rbColorD">День</string>
+    <string name="cbEkr">Не выключать экран</string>
 
 </resources>

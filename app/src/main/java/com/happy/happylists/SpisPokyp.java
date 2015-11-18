@@ -58,6 +58,9 @@ public class SpisPokyp extends ActionBarActivity implements LoaderManager.Loader
     private NavigationView nv;
 
     protected void onCreate(Bundle savedInstanceState) {
+        db = new DB(this);
+        db.open();
+        getTema();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.spispokyp);
 
@@ -88,9 +91,6 @@ public class SpisPokyp extends ActionBarActivity implements LoaderManager.Loader
         nv.setNavigationItemSelectedListener(this);
         //конец процедуры отрисовки левого меню
 
-        db = new DB(this);
-        db.open();
-
         GetSN(snid);
 
         itog=(float) 0;
@@ -112,7 +112,7 @@ public class SpisPokyp extends ActionBarActivity implements LoaderManager.Loader
         acPE.setVisibility(View.GONE);
         ClView();
         CreateListProducts(); //список всех продуктов со справочника
-        tvItog.setText(String.format("%.2f",itog));
+        tvItog.setText(String.format("%.2f", itog));
 
     }
 
@@ -140,7 +140,8 @@ public class SpisPokyp extends ActionBarActivity implements LoaderManager.Loader
                 Log.d(TAG, "it05");
                 return true;
             case R.id.it06:
-                Log.d(TAG, "it06");
+                Intent intenms = new Intent(this, MainSettigs.class);
+                startActivity(intenms);
                 return true;
             case R.id.it07:
                 Log.d(TAG, "it07");
@@ -262,7 +263,10 @@ public class SpisPokyp extends ActionBarActivity implements LoaderManager.Loader
     @Override
     public void onRestart() {
         super.onRestart();
-        getSupportLoaderManager().getLoader(0).forceLoad();
+        CreateSPList();
+        Intent intent2 = getIntent();
+        finish();
+        startActivity(intent2);
     }
 
     //список всех продуктов со справочника, работа с выборкой
@@ -605,4 +609,22 @@ public class SpisPokyp extends ActionBarActivity implements LoaderManager.Loader
             Log.v(TAG,"OnLoadFinished: spAdapter is null");
     }
 
+    //определение темы (светлое/темное) активити
+    public void getTema() {
+        int tmp_t=0;
+        Cursor cursor = db.getMailSettings();
+        if (cursor.getCount() > 0) {
+            int sid = cursor.getColumnIndex("_id");
+            cursor.moveToFirst();
+            do {
+                if (!cursor.isNull(sid))
+                    tmp_t = Integer.parseInt(cursor.getString(cursor.getColumnIndex("tema")));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        if (tmp_t==0)
+            setTheme(R.style.AppThemeLight);
+        else
+            setTheme(R.style.AppTheme);
+    }
 }

@@ -42,6 +42,21 @@ public class DB {
 	public Cursor getUsdat() {
 		return database.rawQuery("select date_in from Huser", null);
 	}
+	//Выборка всех настроек пользователя
+	public Cursor getMailSettings() {
+		return database.rawQuery("select * from mainset where _id = (select setid from Huser)", null);
+	}
+	//обновить главные настройки для приложения
+	public void UpDateMainSet(String DB_TABLE, int ekr, int tem) {
+		SimpleDateFormat sdtf = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss");
+		String datetime = sdtf.format(new Date(System.currentTimeMillis()));
+		ContentValues cv = new ContentValues();
+		cv.put("ekr", ekr);
+		cv.put("tema", tem);
+		cv.put("date_in", datetime);
+		cv.put("sinxr", 0);
+		database.update(DB_TABLE, cv, "_id = 1", null);
+	}
 
 // работа над над всей базой
 
@@ -56,6 +71,7 @@ public class DB {
 		database.update("kategor", cv, "_id in (select _id from kategor) ", null);
 		database.update("pprice", cv, "_id in (select _id from pprice) ", null);
 		database.update("products", cv, "_id in (select _id from products) ", null);
+		database.update("mainset", cv, "_id in (select _id from mainset) ", null);
 	}
 
 // работа с Синхронизацией: поле sinxr, где 0 - изменено и не передано, 1 - передано.
@@ -112,7 +128,7 @@ public class DB {
 // работа с Настройками
 
 	// Добавить новую настройку для нового списка
-	public void addNewNastr(String DB_TABLE, int snom, int kg, int kl,int pr,int vl,int ui,int si,int np) {
+	public void addNewNastr(String DB_TABLE, int snom, int kg, int kl,int pr,int vl,int ui,int si) {
 		SimpleDateFormat sdtf = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss");
 		String datetime = sdtf.format(new Date(System.currentTimeMillis()));
 		ContentValues cv = new ContentValues();
@@ -121,10 +137,8 @@ public class DB {
 		cv.put("kolvo", kl);
 		cv.put("price", pr);
 		cv.put("valuta", vl);
-		cv.put("ekr", "0");
 		cv.put("usid", ui);
 		cv.put("sinch", si);
-		cv.put("napom", np);
 		cv.put("date_in", datetime);
 		cv.put("sinxr", 0);
 		database.insert(DB_TABLE, null, cv);
@@ -143,7 +157,6 @@ public class DB {
 		cv.put("valuta", vl);
 		cv.put("usid", ui);
 		cv.put("sinch", si);
-		cv.put("napom", np);
 		cv.put("date_in", datetime);
 		cv.put("sinxr", 0);
 		database.update(DB_TABLE, cv, "sn = "+ sn, null);
