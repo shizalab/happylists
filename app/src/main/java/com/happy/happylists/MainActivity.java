@@ -45,7 +45,7 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
     private android.support.v7.app.ActionBar actionBar;
     private ActionBarDrawerToggle toggle;
 
-    int prodid, sn;
+    int prodid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -206,7 +206,6 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
                     break;
             }
             CreateListSpisok();
-
         }
     };
 
@@ -321,11 +320,26 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         int snid = (int) id;
+        int tmp_type = 0;
         TextView textView1 = (TextView) view.findViewById(R.id.tvSS);
-        Intent intentsp = new Intent(this, SpisPokyp.class);
-        intentsp.putExtra("snid", snid);
-        intentsp.putExtra("sname", textView1.getText().toString());
-        startActivity(intentsp);
+         Cursor cursor = db.getSpisokId(snid);
+        if (cursor.getCount() > 0) {
+            int sid = cursor.getColumnIndex("_id");
+            cursor.moveToFirst();
+            do {
+                if (!cursor.isNull(sid)) {
+                    tmp_type = Integer.parseInt(cursor.getString(cursor.getColumnIndex("stype")));
+                }
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        if (tmp_type==1)
+        {
+            Intent intentsp = new Intent(this, SpisPokyp.class);
+            intentsp.putExtra("snid", snid);
+            intentsp.putExtra("sname", textView1.getText().toString());
+            startActivity(intentsp);
+        }
     }
 
     //процедура обновления поля date_in во всех таблицах в новосозданной базе.

@@ -20,7 +20,6 @@ import android.widget.Toast;
 public class NewSpisok extends Activity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
 
     DB db;
-    MainActivity ma;
     EditText etName,etOpis;
     TextView tvType;
     RadioGroup rg;
@@ -224,9 +223,9 @@ public class NewSpisok extends Activity implements View.OnClickListener, RadioGr
         //определяем тип списка
         int stype = 0;
         if (rbP.isChecked())
-            stype=1;
+            stype=1; //покупки
         if (rbZ.isChecked())
-            stype=2;
+            stype=2; //задачи
         //определяем id пользователя
         int hu = 0;
         cursor = db.getUserID();
@@ -239,7 +238,7 @@ public class NewSpisok extends Activity implements View.OnClickListener, RadioGr
             } while (cursor.moveToNext());
         }
         cursor.close();
-        Log.d(TAG, "addNewSpisok: sn="+sn+", name="+etName.getText().toString()+", opis="+etOpis.getText().toString()+", type="+stype+", hu="+hu);
+      //  Log.d(TAG, "addNewSpisok: sn="+sn+", name="+etName.getText().toString()+", opis="+etOpis.getText().toString()+", type="+stype+", hu="+hu);
         //добавляем новый список в базу
         db.addNewSpisok("Spisok", sn, etName.getText().toString(),etOpis.getText().toString(),stype,hu);
         // в зависимости от типа списка прописываем категорию
@@ -345,9 +344,9 @@ public class NewSpisok extends Activity implements View.OnClickListener, RadioGr
         }
         cursor.close();
         if (tmp_t==0)
-            getApplicationContext().setTheme(R.style.AppThemeLight);
+            setTheme(R.style.AppThemeLight);
         else
-            getApplicationContext().setTheme(R.style.AppTheme);
+            setTheme(R.style.AppTheme);
     }
 
 }
