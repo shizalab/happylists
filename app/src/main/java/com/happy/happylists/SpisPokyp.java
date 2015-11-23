@@ -4,14 +4,15 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SimpleCursorAdapter;
@@ -23,7 +24,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
@@ -549,14 +549,19 @@ public class SpisPokyp extends ActionBarActivity implements LoaderManager.Loader
                     case R.id.ivKorz:
                         int kzz = Integer.parseInt(cursor.getString(cursor.getColumnIndex("skorz")));
                         ImageView ivk = (ImageView) view.findViewById(R.id.ivKorz);
-                        if (kzz == 1)
-                            ivk.setBackgroundResource(R.drawable.bullchecked);
+                        GradientDrawable shapeDrawable = (GradientDrawable)ivk.getBackground();
+                        if (kzz == 1) {
+                            shapeDrawable.setColor(getResources().getColor(R.color.lv_grey));
+                            shapeDrawable.setStroke(4, getResources().getColor(R.color.lv_alfa));
+                        }
                         else {
+                            String kcol = cursor.getString(cursor.getColumnIndex("kc"));
+                            shapeDrawable.setColor(Color.parseColor(kcol));
                             int vagn = Integer.parseInt(cursor.getString(cursor.getColumnIndex("svagno")));
                             if (vagn == 1)
-                                ivk.setBackgroundResource(R.drawable.bullred);
+                                shapeDrawable.setStroke(4, getResources().getColor(R.color.lv_red));
                             else
-                                ivk.setBackgroundResource(R.drawable.bull);
+                                shapeDrawable.setStroke(4, getResources().getColor(R.color.lv_alfa));
                         }
                         return true;
                     case R.id.tvPN:
@@ -564,10 +569,10 @@ public class SpisPokyp extends ActionBarActivity implements LoaderManager.Loader
                         TextView tPN = (TextView) view.findViewById(R.id.tvPN);
                         if (kz == 1) {
                             tPN.setPaintFlags(tPN.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                            tPN.setTextColor(Color.parseColor("#BEBEBE"));
+                            tPN.setTextColor(getResources().getColor(R.color.lv_grey));
                         } else {
                             tPN.setPaintFlags(tPN.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
-                            tPN.setTextColor(Color.parseColor("#000000"));
+                            tPN.setTextColor(getResources().getColor(R.color.lv_black));
                         }
                         tPN.setText(cursor.getString(cursor.getColumnIndex("pname")));
                         return true;
@@ -576,10 +581,10 @@ public class SpisPokyp extends ActionBarActivity implements LoaderManager.Loader
                         TextView tPO = (TextView) view.findViewById(R.id.tvPO);
                         if (kzo == 1) {
                             tPO.setPaintFlags(tPO.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                            tPO.setTextColor(Color.parseColor("#BEBEBE"));
+                            tPO.setTextColor(getResources().getColor(R.color.lv_grey));
                         } else {
                             tPO.setPaintFlags(tPO.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
-                            tPO.setTextColor(Color.parseColor("#000000"));
+                            tPO.setTextColor(getResources().getColor(R.color.lv_black));
                         }
                         tPO.setText(cursor.getString(cursor.getColumnIndex("popis")));
                         return true;
@@ -592,9 +597,9 @@ public class SpisPokyp extends ActionBarActivity implements LoaderManager.Loader
                             tvPK.setVisibility(View.VISIBLE);
                             tvPK.setText(cursor.getString(cursor.getColumnIndex("skol")));
                             if (kz1 == 1)
-                                tvPK.setTextColor(Color.parseColor("#BEBEBE"));
+                                tvPK.setTextColor(getResources().getColor(R.color.lv_grey));
                             else
-                                tvPK.setTextColor(Color.parseColor("#000000"));
+                                tvPK.setTextColor(getResources().getColor(R.color.lv_black));
                             if (pr == 0)
                                 tvPK.setTextSize(20);
                             else
@@ -611,9 +616,9 @@ public class SpisPokyp extends ActionBarActivity implements LoaderManager.Loader
                             tvPE.setVisibility(View.VISIBLE);
                             tvPE.setText(cursor.getString(cursor.getColumnIndex("ename")));
                             if (kz2 == 1)
-                                tvPE.setTextColor(Color.parseColor("#BEBEBE"));
+                                tvPE.setTextColor(getResources().getColor(R.color.lv_grey));
                             else
-                                tvPE.setTextColor(Color.parseColor("#000000"));
+                                tvPE.setTextColor(getResources().getColor(R.color.lv_black));
                             if (pr == 0)
                                 tvPE.setTextSize(20);
                             else
@@ -632,9 +637,9 @@ public class SpisPokyp extends ActionBarActivity implements LoaderManager.Loader
                                 tvPV.setVisibility(View.VISIBLE);
                                 tvPV.setText(cursor.getString(cursor.getColumnIndex("abv")));
                                 if (kz3 == 1)
-                                    tvPV.setTextColor(Color.parseColor("#BEBEBE"));
+                                    tvPV.setTextColor(getResources().getColor(R.color.lv_grey));
                                 else
-                                    tvPV.setTextColor(Color.parseColor("#000000"));
+                                    tvPV.setTextColor(getResources().getColor(R.color.lv_black));
                             }
                         }
                         return true;
@@ -651,9 +656,9 @@ public class SpisPokyp extends ActionBarActivity implements LoaderManager.Loader
                             tv.setVisibility(View.VISIBLE);
                             tv.setText(String.format("%.2f", it));
                             if (kz4 == 1)
-                                tv.setTextColor(Color.parseColor("#BEBEBE"));
+                                tv.setTextColor(getResources().getColor(R.color.lv_grey));
                             else
-                                tv.setTextColor(Color.parseColor("#000000"));
+                                tv.setTextColor(getResources().getColor(R.color.lv_black));
                         }
                         return true;
                 }
@@ -900,6 +905,7 @@ public class SpisPokyp extends ActionBarActivity implements LoaderManager.Loader
         Float ip = Float.parseFloat(etPrice.getText().toString().replace(',', '.'));
         //добавление продукта в Список покупок
         db.addProdSpisok("Pokypka", sn, p_id, op_id, ik, ip, chv,0,e_id,hu);
+        db.updateAnyInSpisok("Spisok",sn);
         getSupportLoaderManager().getLoader(0).forceLoad();
         savePriceProd(p_id,ip,hu);
         ClView();
@@ -977,6 +983,7 @@ public class SpisPokyp extends ActionBarActivity implements LoaderManager.Loader
         Float ik = Float.parseFloat(etCount.getText().toString().replace(',', '.'));
         Float ip = Float.parseFloat(etPrice.getText().toString().replace(',', '.'));
         db.upProdSpisok("Pokypka", p_id,op_id,ik,ip,chv,e_id,txt,hu);
+        db.updateAnyInSpisok("Spisok", sn);
         getSupportLoaderManager().getLoader(0).forceLoad();
         savePriceProd(p_id,ip,hu);
     }
@@ -1028,7 +1035,6 @@ public class SpisPokyp extends ActionBarActivity implements LoaderManager.Loader
                         tv2 = Float.parseFloat(cursor.getString(cursor.getColumnIndex("skol")).replace(',', '.'));
                         tv3 = cursor.getString(cursor.getColumnIndex("ename"));
                         tv4 = Float.parseFloat(cursor.getString(cursor.getColumnIndex("sprice")).replace(',', '.'));
-                        tv7 = Integer.parseInt(cursor.getString(cursor.getColumnIndex("svagno")));
                         tv8 = cursor.getString(cursor.getColumnIndex("popis"));
                     } while (cursor.moveToNext());
                 }
@@ -1060,10 +1066,20 @@ public class SpisPokyp extends ActionBarActivity implements LoaderManager.Loader
                 etPrice.setEnabled(false);
             else
                 etPrice.setEnabled(true);
+            cursor = db.getVagnoID(prodid);
+            if (cursor.getCount() != 0) {
+                cursor.moveToFirst();
+                do {
+                    tv7 = Integer.parseInt(cursor.getString(cursor.getColumnIndex("svagno")));
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+            Log.d(TAG, "tv7="+tv7);
             if ( tv7==1)
                 chbvagno.setChecked(true);
             else
                 chbvagno.setChecked(false);
+
             etCount.requestFocus();
         }
         return true;

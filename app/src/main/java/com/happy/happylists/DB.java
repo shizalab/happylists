@@ -104,10 +104,23 @@ public class DB {
   	}
 	// добавить запись в таблицу Список
 	public void updateSpisok(String DB_TABLE, int snom,String snam, String sopis,int usid ) {
+		SimpleDateFormat sdtf = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss");
+		String datetime = sdtf.format(new Date(System.currentTimeMillis()));
 		ContentValues cv = new ContentValues();
 		cv.put("sname", snam);
 		cv.put("sopis", sopis);
 		cv.put("usid", usid);
+		cv.put("date_in", datetime);
+		cv.put("sinxr", 0);
+		database.update(DB_TABLE, cv, "sn = " + snom, null);
+	}
+	// добавить запись в таблицу Список
+	public void updateAnyInSpisok(String DB_TABLE, int snom) {
+		SimpleDateFormat sdtf = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss");
+		String datetime = sdtf.format(new Date(System.currentTimeMillis()));
+		ContentValues cv = new ContentValues();
+		cv.put("date_in", datetime);
+		cv.put("sinxr", 0);
 		database.update(DB_TABLE, cv, "sn = " + snom, null);
 	}
 
@@ -311,6 +324,10 @@ public class DB {
 	// получить все данные из таблицы Pokypka
 	public Cursor getSpisokID(int spid) {
 		return database.rawQuery("Select s._id as _id, s.sn,p.pname,e.ename,s.skol,s.sprice,s.svagno,s.skorz,po.popis,(select kcolor from kategor where _id=p.kid ) as kc,(select abv from valuta where _id=sp.vid) as abv from Pokypka s, products p, Edin e , Spisok sp, Popis po where s.pid=p._id and s.eid=e._id and s._id = "+spid+" and s.sn=sp.sn and s.opid=po._id", null);
+	}
+	// получить все данные из таблицы Pokypka
+	public Cursor getVagnoID(int spid) {
+		return database.rawQuery("Select svagno from Pokypka where _id = "+spid, null);
 	}
 	//обновить продукт из Списка покупок
 	public void upProdSpisok(String DB_TABLE,int pid, int opid, float skol, float sprice, int v, int eid, int _id,int hu) {
