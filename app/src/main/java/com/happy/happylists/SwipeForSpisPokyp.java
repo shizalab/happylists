@@ -2,6 +2,7 @@ package com.happy.happylists;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -241,6 +242,7 @@ public class SwipeForSpisPokyp implements View.OnTouchListener {
                             .setDuration(mAnimationTime)
                             .setListener(null);
                 }
+                mDownView.setBackgroundColor(view.getResources().getColor(R.color.lv_alfa));
                 mVelocityTracker.recycle();
                 mVelocityTracker = null;
                 mDownX = 0;
@@ -278,10 +280,13 @@ public class SwipeForSpisPokyp implements View.OnTouchListener {
                 if (mSwiping) {
                     setTranslationX(mDownView, deltaX);
                     setAlpha(mDownView, Math.max(0f, Math.min(1f, 1f - 2f * Math.abs(deltaX) / mViewWidth)));
-                    if (deltaX<0)
-                         ysl=0;
-                        else
-                        ysl=1;
+                    if (deltaX<0) {
+                        mDownView.setBackgroundColor(view.getResources().getColor(R.color.lv_rd));
+                        ysl = 0;
+                    } else {
+                        mDownView.setBackgroundColor(view.getResources().getColor(R.color.lv_grn));
+                        ysl = 1;
+                    }
                     return true;
                 }
                 break;

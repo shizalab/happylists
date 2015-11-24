@@ -22,5 +22,7 @@
     <color name="lv_red">#FF0000</color>
     <color name="lv_black">#000000</color>
     <color name="lv_alfa">@android:color/transparent</color>
+    <color name="lv_rd">#fbb897</color>
+    <color name="lv_grn">#97fb9e</color>
 
 </resources>

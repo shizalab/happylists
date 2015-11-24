@@ -1074,7 +1074,6 @@ public class SpisPokyp extends ActionBarActivity implements LoaderManager.Loader
                 } while (cursor.moveToNext());
             }
             cursor.close();
-            Log.d(TAG, "tv7="+tv7);
             if ( tv7==1)
                 chbvagno.setChecked(true);
             else
