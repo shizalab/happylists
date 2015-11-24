@@ -9,6 +9,7 @@
 
     <string name="Titl">Удаление</string>
     <string name="delete_record">Вы уверены, что хотите удалить список?</string>
+    <string name="delete_prod">Вы уверены, что хотите удалить продукт со списка?</string>
     <string name="yes">Да</string>
     <string name="cancel">Отмена</string>
 
@@ -40,6 +41,7 @@
     <string name="it14">Настройки списка</string>
 
     <string name="add_prod">введите продукт</string>
+    <string name="add_opis">описание продукта</string>
     <string name="Add">+</string>
     <string name="etCount">кол-во</string>
     <string name="acPE">ед-ца</string>
@@ -49,5 +51,15 @@
     <string name="Del">Удалить</string>
     <string name="Sav">Сохранить</string>
 
+    <string name="tvColor">Выберите цветовую тематику:</string>
+    <string name="rbColorN">Ночь</string>
+    <string name="rbColorD">День</string>
+    <string name="cbEkr">Не выключать экран</string>
+
+    <string name="toa_PN">Введите продукт!</string>
+    <string name="toa_Count">Введите количество продукта!</string>
+    <string name="toa_PE">Введите единицу продукта!</string>
+    <string name="toa_Price">Введите цену продукта!</string>
+    <string name="toa_Zero">Количество и цена должны быть больше нуля</string>
 
 </resources>

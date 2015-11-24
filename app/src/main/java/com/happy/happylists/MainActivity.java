@@ -1,9 +1,11 @@
 package com.happy.happylists;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.PowerManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -43,10 +45,13 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
     private android.support.v7.app.ActionBar actionBar;
     private ActionBarDrawerToggle toggle;
 
-    int prodid, sn;
+    int prodid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        db = new DB(this);
+        db.open();
+        getTema();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
@@ -72,9 +77,6 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
         nv = (NavigationView) findViewById(R.id.navigation);
         nv.setNavigationItemSelectedListener(this);
          //конец процедуры отрисовки левого меню
-
-        db = new DB(this);
-        db.open();
 
         bt_new = (Button) findViewById(R.id.bt_new);
         lvSS = (ListView) findViewById(R.id.lvSS);
@@ -113,7 +115,9 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
                 Log.d(TAG, "it05");
                 return true;
             case R.id.it06:
-                Log.d(TAG, "it06");
+                //Log.d(TAG, "it06");
+                Intent intenms = new Intent(this, MainSettigs.class);
+                startActivity(intenms);
                 return true;
             case R.id.it07:
                 Log.d(TAG, "it07");
@@ -202,7 +206,6 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
                     break;
             }
             CreateListSpisok();
-
         }
     };
 
@@ -295,6 +298,10 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
     public void onRestart() {
         super.onRestart();
         getSupportLoaderManager().getLoader(0).forceLoad();
+        //переключатель темы (светлое/темное) активити
+            Intent intent2 = getIntent();
+            finish();
+            startActivity(intent2);
     }
 
     // долгое нажатие на пункт в listview
@@ -313,11 +320,26 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         int snid = (int) id;
+        int tmp_type = 0;
         TextView textView1 = (TextView) view.findViewById(R.id.tvSS);
-        Intent intentsp = new Intent(this, SpisPokyp.class);
-        intentsp.putExtra("snid", snid);
-        intentsp.putExtra("sname", textView1.getText().toString());
-        startActivity(intentsp);
+         Cursor cursor = db.getSpisokId(snid);
+        if (cursor.getCount() > 0) {
+            int sid = cursor.getColumnIndex("_id");
+            cursor.moveToFirst();
+            do {
+                if (!cursor.isNull(sid)) {
+                    tmp_type = Integer.parseInt(cursor.getString(cursor.getColumnIndex("stype")));
+                }
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        if (tmp_type==1)
+        {
+            Intent intentsp = new Intent(this, SpisPokyp.class);
+            intentsp.putExtra("snid", snid);
+            intentsp.putExtra("sname", textView1.getText().toString());
+            startActivity(intentsp);
+        }
     }
 
     //процедура обновления поля date_in во всех таблицах в новосозданной базе.
@@ -333,5 +355,33 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
             } while (cursor.moveToNext());
         }
         cursor.close();
+    }
+
+    //определение темы (светлое/темное) активити
+    public void getTema() {
+        int tmp_t=0;
+        int tmp_e=0;
+        Cursor cursor = db.getMailSettings();
+        if (cursor.getCount() > 0) {
+            int sid = cursor.getColumnIndex("_id");
+            cursor.moveToFirst();
+            do {
+                if (!cursor.isNull(sid)) {
+                     tmp_t = Integer.parseInt(cursor.getString(cursor.getColumnIndex("tema")));
+                     tmp_e = Integer.parseInt(cursor.getString(cursor.getColumnIndex("ekr")));
+                }
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        if (tmp_t==0)
+            setTheme(R.style.AppThemeLight);
+        else
+            setTheme(R.style.AppTheme);
+        if (tmp_e==1) {
+            PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+            PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, TAG);
+            getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+            wl.acquire();
+        }
     }
 }

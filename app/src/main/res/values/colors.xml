@@ -9,5 +9,18 @@
     <color name="list_background_pressed">#ccc</color>
     <color name="drawer_item_color">#fff</color>
     <color name="list_divider">#5e5e5e</color>
+    <color name="echo">#333333</color>
+
+    <color name="primary_light">#EDECEB</color>
+    <color name="accent_light">#517c50</color>
+    <color name="primary_dark_light">#0d0c0c</color>
+    <color name="primary">#2d2c2a</color>
+    <color name="accent">#a5c0df</color>
+    <color name="primary_dark">#e2e0e0</color>
+
+    <color name="lv_grey">#BEBEBE</color>
+    <color name="lv_red">#FF0000</color>
+    <color name="lv_black">#000000</color>
+    <color name="lv_alfa">@android:color/transparent</color>
 
 </resources>

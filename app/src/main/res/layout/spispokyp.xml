@@ -6,8 +6,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:fitsSystemWindows="true"
-    android:background="@drawable/listsback">
+    android:fitsSystemWindows="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,7 +28,6 @@
             android:layout_marginBottom="15sp"
             android:layout_marginRight="10sp"
             android:layout_marginLeft="10sp"
-            android:background="@drawable/customborder"
             android:layout_weight="1.1"
             android:completionThreshold="3"
             android:hint="@string/add_prod" >
@@ -40,7 +38,6 @@
             android:id="@+id/btnAdd"
             android:layout_width="47sp"
             android:layout_height="wrap_content"
-            android:background="@drawable/roundbtn"
             android:textColor="#FFFFFF"
             android:layout_marginRight="10sp"
             android:layout_marginTop="1sp"
@@ -49,6 +46,26 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7sp"
+        android:orientation="horizontal">
+
+        <AutoCompleteTextView
+            android:id="@+id/acPOpis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3sp"
+            android:layout_marginBottom="15sp"
+            android:layout_marginRight="10sp"
+            android:layout_marginLeft="10sp"
+            android:layout_weight="1.1"
+            android:completionThreshold="1"
+            android:hint="@string/add_opis" >
+        </AutoCompleteTextView>
+
+        </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ll2"
@@ -100,15 +117,6 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btDel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:layout_margin="5dp"
-            android:text="@string/Del">
-        </Button>
 
         <Button
             android:id="@+id/btSave"

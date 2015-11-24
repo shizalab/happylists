@@ -20,7 +20,6 @@ import android.widget.Toast;
 public class NewSpisok extends Activity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
 
     DB db;
-    MainActivity ma;
     EditText etName,etOpis;
     TextView tvType;
     RadioGroup rg;
@@ -35,14 +34,14 @@ public class NewSpisok extends Activity implements View.OnClickListener, RadioGr
     static final String TAG = "myLogs";
 
     protected void onCreate(Bundle savedInstanceState) {
+        db = new DB(this);
+        db.open();
+        getTema();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.newspisok);
 
         btnName = getIntent().getExtras().getString("btn");
         snid = getIntent().getExtras().getInt("snid");
-
-        db = new DB(this);
-        db.open();
 
         etName = (EditText) findViewById(R.id.etName);
         etOpis = (EditText) findViewById(R.id.etOpis);
@@ -182,7 +181,6 @@ public class NewSpisok extends Activity implements View.OnClickListener, RadioGr
                     pr = Integer.parseInt(cursor.getString(cursor.getColumnIndex("price")));
                     vl = Integer.parseInt(cursor.getString(cursor.getColumnIndex("valuta")));
                     sch = Integer.parseInt(cursor.getString(cursor.getColumnIndex("sinch")));
-                    np = Integer.parseInt(cursor.getString(cursor.getColumnIndex("napom")));
             } while (cursor.moveToNext());
         }
         cursor.close();
@@ -225,9 +223,9 @@ public class NewSpisok extends Activity implements View.OnClickListener, RadioGr
         //определяем тип списка
         int stype = 0;
         if (rbP.isChecked())
-            stype=1;
+            stype=1; //покупки
         if (rbZ.isChecked())
-            stype=2;
+            stype=2; //задачи
         //определяем id пользователя
         int hu = 0;
         cursor = db.getUserID();
@@ -240,7 +238,7 @@ public class NewSpisok extends Activity implements View.OnClickListener, RadioGr
             } while (cursor.moveToNext());
         }
         cursor.close();
-        Log.d(TAG, "addNewSpisok: sn="+sn+", name="+etName.getText().toString()+", opis="+etOpis.getText().toString()+", type="+stype+", hu="+hu);
+      //  Log.d(TAG, "addNewSpisok: sn="+sn+", name="+etName.getText().toString()+", opis="+etOpis.getText().toString()+", type="+stype+", hu="+hu);
         //добавляем новый список в базу
         db.addNewSpisok("Spisok", sn, etName.getText().toString(),etOpis.getText().toString(),stype,hu);
         // в зависимости от типа списка прописываем категорию
@@ -276,7 +274,7 @@ public class NewSpisok extends Activity implements View.OnClickListener, RadioGr
             np = 0;
        // Log.d(TAG, "addNewNastr: sn="+sn+", kg="+kg+", kl="+kl+", pr="+pr+", vl="+vl+", hu="+hu+", si="+si+", np="+np);
         //добавляем новую настройку нового списка в базу
-        db.addNewNastr("Nastr", sn, kg, kl,pr,vl,hu,si,np);
+        db.addNewNastr("Nastr", sn, kg, kl,pr,vl,hu,si);
     }
 
     private void updateSpisok() {
@@ -323,7 +321,7 @@ public class NewSpisok extends Activity implements View.OnClickListener, RadioGr
             np = 0;
         // Log.d(TAG, "addNewNastr: sn="+sn+", kg="+kg+", kl="+kl+", pr="+pr+", vl="+vl+", hu="+hu+", si="+si+", np="+np);
         //добавляем новую настройку нового списка в базу
-        db.UpDateNastr("Nastr", sn, kl, pr, vl, hu, si,np);
+        db.UpDateNastr("Nastr", sn, kl, pr, vl, hu, si, np);
     }
 
     protected void onDestroy() {
@@ -331,4 +329,24 @@ public class NewSpisok extends Activity implements View.OnClickListener, RadioGr
         // закрываем подключение при выходе
         db.close();
     }
+
+    //определение темы (светлое/темное) активити
+    public void getTema() {
+        int tmp_t=0;
+        Cursor cursor = db.getMailSettings();
+        if (cursor.getCount() > 0) {
+            int sid = cursor.getColumnIndex("_id");
+            cursor.moveToFirst();
+            do {
+                if (!cursor.isNull(sid))
+                    tmp_t = Integer.parseInt(cursor.getString(cursor.getColumnIndex("tema")));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        if (tmp_t==0)
+            setTheme(R.style.AppThemeLight);
+        else
+            setTheme(R.style.AppTheme);
+    }
+
 }
