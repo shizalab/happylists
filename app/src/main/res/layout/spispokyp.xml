@@ -161,8 +161,23 @@
             android:textSize="20sp" />
 
         <TextView
+            android:id="@+id/tvItognds"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="#96f065"
+            android:gravity="left"
+            android:paddingLeft="50sp"
+            android:textStyle="bold"
+            android:paddingTop="20sp"
+            android:text=""
+            android:textColor="#000000"
+            android:textSize="10sp" >
+
+        </TextView>
+
+        <TextView
             android:id="@+id/tvItog"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="#96f065"
             android:gravity="right"
@@ -170,7 +185,7 @@
             android:textStyle="bold"
             android:paddingTop="10sp"
             android:text=""
-            android:ems="20"
+            android:ems="10"
             android:textColor="#000000"
             android:textSize="20sp" >
 

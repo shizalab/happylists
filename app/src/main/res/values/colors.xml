@@ -24,5 +24,6 @@
     <color name="lv_alfa">@android:color/transparent</color>
     <color name="lv_rd">#fbb897</color>
     <color name="lv_grn">#97fb9e</color>
+    <color name="lv_price">#ffce9f</color>
 
 </resources>

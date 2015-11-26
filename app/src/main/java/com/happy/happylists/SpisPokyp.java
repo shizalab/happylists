@@ -49,12 +49,12 @@ public class SpisPokyp extends ActionBarActivity implements LoaderManager.Loader
     SwipeForSpisPokyp ssp;
 
     String snName;
-    int sn,kv,pr,tmp,vl, prodid;
-    float itog;
+    int sn,kv,pr,tmp,vl, prodid, st,prnds;
+    float itog,nds,itognds;
     AutoCompleteTextView acPN,acPE,acPOpis;
     EditText etCount,etPrice;
     CheckBox chbvagno;
-    TextView tvItog, tvItogtxt;
+    TextView tvItog, tvItogtxt, tvItognds;
     ListView lvData;
     Cursor spprCursor,prodCursor,edinCursor,cursor,opCursor;
     SimpleCursorAdapter spAdapter,pcAdapter,ecAdapter,opAdapter;
@@ -105,11 +105,13 @@ public class SpisPokyp extends ActionBarActivity implements LoaderManager.Loader
         GetSN(snid);
 
         itog=(float) 0;
+        itognds=(float) 0;
         etCount = (EditText) findViewById(R.id.etCount);
         etPrice = (EditText) findViewById(R.id.etPrice);
         chbvagno = (CheckBox) findViewById(R.id.chbvagno);
         tvItog = (TextView) findViewById(R.id.tvItog);
         tvItogtxt = (TextView) findViewById(R.id.tvItogtxt);
+        tvItognds = (TextView) findViewById(R.id.tvItognds);
         etCount.setVisibility(View.GONE);
         etPrice.setVisibility(View.GONE);
         chbvagno.setVisibility(View.GONE);
@@ -128,9 +130,19 @@ public class SpisPokyp extends ActionBarActivity implements LoaderManager.Loader
         acPE.setVisibility(View.GONE);
         ClView();
         CreateListProducts(); //список всех продуктов со справочника
-        tvItog.setText(String.format("%.2f", itog));
-        SumInKorz();
 
+        if (st==0)
+        {
+            tvItogtxt.setVisibility(View.GONE);
+            tvItog.setVisibility(View.GONE);
+            tvItognds.setVisibility(View.GONE);
+        } else {
+            tvItogtxt.setVisibility(View.VISIBLE);
+            tvItog.setVisibility(View.VISIBLE);
+            if ((prnds == 1) && (nds != 0))
+                tvItognds.setVisibility(View.VISIBLE);
+         }
+        SumInKorz();
     }
 
     //начало процедуры отрисовки левого меню
@@ -285,7 +297,10 @@ public class SpisPokyp extends ActionBarActivity implements LoaderManager.Loader
         }
         if (tvItog != null)
             tvItog.setText(String.format("%.2f",itog));
+        if (tvItognds != null)
+            tvItognds.setText(String.format("%.2f",itognds));
     }
+
     //определение sn
     private void GetSN(int snid) {
         cursor = db.getSpisokId(snid);
@@ -300,8 +315,7 @@ public class SpisPokyp extends ActionBarActivity implements LoaderManager.Loader
             }
             cursor.close();
         //Log.d(TAG, "GetSN: sn=" + sn);
-
-    }
+   }
 
     // закрытие окна
     protected void onDestroy() {
@@ -378,16 +392,16 @@ public class SpisPokyp extends ActionBarActivity implements LoaderManager.Loader
                 if (hasFocus)
                     acPN.showDropDown();
                 cursor = db.getNastr(sn);
-                int prtxt = 0;
+                int sttxt = 0;
                 int id_CC = cursor.getCount();
                 if (id_CC > 0) {
                     cursor.moveToFirst();
                     do {
-                        prtxt = Integer.parseInt(cursor.getString(cursor.getColumnIndex("price")));
+                        sttxt = Integer.parseInt(cursor.getString(cursor.getColumnIndex("stoim")));
                     } while (cursor.moveToNext());
                 }
                 cursor.close();
-                if (prtxt == 0)
+                if (sttxt == 0)
                     etPrice.setEnabled(false);
                 else
                     etPrice.setEnabled(true);
@@ -522,14 +536,18 @@ public class SpisPokyp extends ActionBarActivity implements LoaderManager.Loader
     //Процедура получения настроек для списка
     private void GetNastr() {
         kv=0;	pr=0;  vl=0;
+        st=0; prnds=0; nds=0;
         cursor = db.getNastr(sn);
         if (cursor.getCount()>0) {
             int nid = cursor.getColumnIndex("_id");
             cursor.moveToFirst();
             do {
                 if (!cursor.isNull(nid)) {
-                    kv=Integer.parseInt(cursor.getString(cursor.getColumnIndex("kolvo")));
+                    st=Integer.parseInt(cursor.getString(cursor.getColumnIndex("stoim")));
                     pr=Integer.parseInt(cursor.getString(cursor.getColumnIndex("price")));
+                    prnds=Integer.parseInt(cursor.getString(cursor.getColumnIndex("pricends")));
+                    nds=Float.parseFloat(cursor.getString(cursor.getColumnIndex("nds")));
+                    kv=Integer.parseInt(cursor.getString(cursor.getColumnIndex("kolvo")));
                     vl=Integer.parseInt(cursor.getString(cursor.getColumnIndex("valuta")));
                 }
             } while (cursor.moveToNext());
@@ -539,8 +557,8 @@ public class SpisPokyp extends ActionBarActivity implements LoaderManager.Loader
 
     //процедура содания Списка покупков (Listview)
     public void CreateSPList () {
-        String[] from = new String[] {"skorz", "pname", "popis","ename", "skol", "abv", "sprice" };
-        int[] to = new int[] {R.id.ivKorz,R.id.tvPN,R.id.tvPO,R.id.tvPE,R.id.tvPK,R.id.tvPV,R.id.tvPP};
+        String[] from = new String[] {"skorz", "pname", "popis", "sprice","ename", "skol", "abv", "sprice" };
+        int[] to = new int[] {R.id.ivKorz,R.id.tvPN,R.id.tvPO,R.id.tvPrNDS,R.id.tvPE,R.id.tvPK,R.id.tvPV,R.id.tvPP};
         spAdapter = new SimpleCursorAdapter(this, R.layout.spispokyplist, spprCursor, from, to,0);
         spAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
             @Override
@@ -588,6 +606,30 @@ public class SpisPokyp extends ActionBarActivity implements LoaderManager.Loader
                         }
                         tPO.setText(cursor.getString(cursor.getColumnIndex("popis")));
                         return true;
+                    case R.id.tvPrNDS:
+                        int kpn = Integer.parseInt(cursor.getString(cursor.getColumnIndex("skorz")));
+                        TextView tvpnds = (TextView) view.findViewById(R.id.tvPrNDS);
+                        if (pr == 0)
+                            tvpnds.setVisibility(View.GONE);
+                        else {
+                            tvpnds.setVisibility(View.VISIBLE);
+                            Float sp = Float.parseFloat(cursor.getString(cursor.getColumnIndex("sprice")).replace(',', '.'));
+                            if ((prnds == 1) && (nds != 0))
+                                sp = sp/(nds+100)*100;
+                            tvpnds.setText(String.format("%.2f", sp));
+                            if (kpn == 1) {
+                                tvpnds.setBackgroundColor(getResources().getColor(R.color.lv_alfa));
+                                tvpnds.setTextColor(getResources().getColor(R.color.lv_grey));
+                            } else {
+                                tvpnds.setBackgroundColor(getResources().getColor(R.color.lv_price));
+                                tvpnds.setTextColor(getResources().getColor(R.color.lv_black));
+                            }
+                            if (st == 0)
+                                tvpnds.setTextSize(20);
+                            else
+                                tvpnds.setTextSize(10);
+                        }
+                        return true;
                     case R.id.tvPK:
                         int kz1 = Integer.parseInt(cursor.getString(cursor.getColumnIndex("skorz")));
                         TextView tvPK = (TextView) view.findViewById(R.id.tvPK);
@@ -600,11 +642,10 @@ public class SpisPokyp extends ActionBarActivity implements LoaderManager.Loader
                                 tvPK.setTextColor(getResources().getColor(R.color.lv_grey));
                             else
                                 tvPK.setTextColor(getResources().getColor(R.color.lv_black));
-                            if (pr == 0)
+                            if (st == 0)
                                 tvPK.setTextSize(20);
                             else
                                 tvPK.setTextSize(10);
-
                         }
                         return true;
                     case R.id.tvPE:
@@ -619,7 +660,7 @@ public class SpisPokyp extends ActionBarActivity implements LoaderManager.Loader
                                 tvPE.setTextColor(getResources().getColor(R.color.lv_grey));
                             else
                                 tvPE.setTextColor(getResources().getColor(R.color.lv_black));
-                            if (pr == 0)
+                            if (st == 0)
                                 tvPE.setTextSize(20);
                             else
                                 tvPE.setTextSize(10);
@@ -631,7 +672,7 @@ public class SpisPokyp extends ActionBarActivity implements LoaderManager.Loader
                         if (vl == 0)
                             tvPV.setVisibility(View.GONE);
                         else {
-                            if (pr == 0)
+                            if (st == 0)
                                 tvPV.setVisibility(View.GONE);
                             else {
                                 tvPV.setVisibility(View.VISIBLE);
@@ -647,12 +688,14 @@ public class SpisPokyp extends ActionBarActivity implements LoaderManager.Loader
                     case R.id.tvPP:
                         int kz4 = Integer.parseInt(cursor.getString(cursor.getColumnIndex("skorz")));
                         TextView tv = (TextView) view.findViewById(R.id.tvPP);
-                        if (pr == 0)
+                        if (st == 0)
                             tv.setVisibility(View.GONE);
                         else {
                             Float sk = Float.parseFloat(cursor.getString(cursor.getColumnIndex("skol")).replace(',', '.'));
                             Float sp = Float.parseFloat(cursor.getString(cursor.getColumnIndex("sprice")).replace(',', '.'));
                             Float it = sp * sk;
+                            if ((prnds == 1) && (nds != 0))
+                                it = it/(nds+100)*100;
                             tv.setVisibility(View.VISIBLE);
                             tv.setText(String.format("%.2f", it));
                             if (kz4 == 1)
@@ -720,6 +763,14 @@ public class SpisPokyp extends ActionBarActivity implements LoaderManager.Loader
         } else
             sm = 0;
         itog = itog +sm;
+       if ((prnds == 1) && (nds != 0 ))
+        {
+            itognds = itog / (100 + nds) * 100;
+            tvItognds= (TextView) findViewById(R.id.tvItognds);
+            if (tvItognds != null  || itognds != 0)
+                tvItognds.setText(String.format("%.2f",itognds));
+               // tvItognds.setText("0.00");
+        }
         tvItog= (TextView) findViewById(R.id.tvItog);
         if (tvItog != null  || itog != 0)
             tvItog.setText(String.format("%.2f",itog));
@@ -1024,9 +1075,9 @@ public class SpisPokyp extends ActionBarActivity implements LoaderManager.Loader
             TextView textView2 = (TextView) view.findViewById(R.id.tvPK);
             TextView textView3 = (TextView) view.findViewById(R.id.tvPE);
             TextView textView4 = (TextView) view.findViewById(R.id.tvPP);
-            if ((textView2.getText().toString().length()==0) ||
+            if ( ((textView2.getText().toString().length()==0) ||
                     (textView3.getText().toString().length()==0) ||
-                    (textView4.getText().toString().length()==0) )
+                    (textView4.getText().toString().length()==0) ) ||  (prnds == 1))
             {
                 cursor = db.getSpisokID(prodid);
                 if (cursor.getCount() != 0) {
@@ -1053,8 +1104,8 @@ public class SpisPokyp extends ActionBarActivity implements LoaderManager.Loader
                 acPE.setText(tv3);
             else
                 acPE.setText(textView3.getText().toString());
-            if ((textView2.getText().toString().length()==0) ||
-                    (textView4.getText().toString().length()==0) )
+            if (((textView2.getText().toString().length()==0) || (textView4.getText().toString().length()==0) )
+                    ||  (prnds == 1))
                 etPrice.setText(Float.toString(tv4));
             else {
                 Float tv5 = Float.parseFloat(textView4.getText().toString().replace(',', '.'));

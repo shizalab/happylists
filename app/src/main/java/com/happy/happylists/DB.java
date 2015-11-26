@@ -142,15 +142,17 @@ public class DB {
 // работа с Настройками
 
 	// Добавить новую настройку для нового списка
-	public void addNewNastr(String DB_TABLE, int snom, int kg, int kl,int pr,int vl,int ui,int si) {
+	public void addNewNastr(String DB_TABLE, int snom,int st,int pr,int prnds,float nds,int vl, int kl,int ui,int si) {
 		SimpleDateFormat sdtf = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss");
 		String datetime = sdtf.format(new Date(System.currentTimeMillis()));
 		ContentValues cv = new ContentValues();
 		cv.put("sn", snom);
-		cv.put("kateg", kg);
-		cv.put("kolvo", kl);
+		cv.put("stoim", st);
 		cv.put("price", pr);
+		cv.put("pricends", prnds);
+		cv.put("nds", nds);
 		cv.put("valuta", vl);
+		cv.put("kolvo", kl);
 		cv.put("usid", ui);
 		cv.put("sinch", si);
 		cv.put("date_in", datetime);
@@ -162,13 +164,16 @@ public class DB {
 		return database.rawQuery("select * from Nastr where sn= "+sn, null);
 	}
 	//обновить настройку для списка
-	public void UpDateNastr(String DB_TABLE, int sn, int kl,int pr,int vl,int ui,int si,int np) {
+	public void UpDateNastr(String DB_TABLE, int sn,int st,int pr,int prnds,float nds,int vl, int kl,int ui,int si) {
 		SimpleDateFormat sdtf = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss");
 		String datetime = sdtf.format(new Date(System.currentTimeMillis()));
 		ContentValues cv = new ContentValues();
-		cv.put("kolvo", kl);
+		cv.put("stoim", st);
 		cv.put("price", pr);
+		cv.put("pricends", prnds);
+		cv.put("nds", nds);
 		cv.put("valuta", vl);
+		cv.put("kolvo", kl);
 		cv.put("usid", ui);
 		cv.put("sinch", si);
 		cv.put("date_in", datetime);

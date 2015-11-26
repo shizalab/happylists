@@ -21,7 +21,10 @@
     <string name="tvType">Тип списка:</string>
     <string name="rbP">Покупки</string>
     <string name="rbZ">Задачи</string>
+    <string name="cbStoim">Стоимость</string>
     <string name="cbPrice">Цена</string>
+    <string name="cbPricends">Цена БЕЗ НДС</string>
+    <string name="etnds">% ндс</string>
     <string name="cbValuta">Валюта</string>
     <string name="cbKolvo">Количество</string>
     <string name="cbNapom">Напоминание</string>
@@ -57,6 +60,8 @@
     <string name="cbEkr">Не выключать экран</string>
 
     <string name="toa_PN">Введите продукт!</string>
+    <string name="toa_Name">Введите, пожалуйста, название списка!</string>
+    <string name="toa_nds">НДС не может быть пустым или нулевым.</string>
     <string name="toa_Count">Введите количество продукта!</string>
     <string name="toa_PE">Введите единицу продукта!</string>
     <string name="toa_Price">Введите цену продукта!</string>
