@@ -141,6 +141,8 @@ public class SpisPokyp extends ActionBarActivity implements LoaderManager.Loader
             tvItog.setVisibility(View.VISIBLE);
             if ((prnds == 1) && (nds != 0))
                 tvItognds.setVisibility(View.VISIBLE);
+            else
+                tvItognds.setVisibility(View.GONE);
          }
         SumInKorz();
     }
