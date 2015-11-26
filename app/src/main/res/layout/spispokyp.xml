@@ -142,6 +142,7 @@
     </ListView>
 
     <LinearLayout
+        android:id="@+id/llI"
         android:layout_width="match_parent"
         android:layout_height="55sp"
         android:orientation="horizontal">
@@ -183,6 +184,7 @@
             </TextView>
 
             <TextView
+                android:id="@+id/tvI"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#96f065"

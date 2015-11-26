@@ -32,6 +32,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.FilterQueryProvider;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,8 +55,9 @@ public class SpisPokyp extends ActionBarActivity implements LoaderManager.Loader
     AutoCompleteTextView acPN,acPE,acPOpis;
     EditText etCount,etPrice;
     CheckBox chbvagno;
-    TextView tvItog, tvItogtxt, tvItognds;
+    TextView tvItog, tvItogtxt, tvItognds, tvI;
     ListView lvData;
+    LinearLayout llI;
     Cursor spprCursor,prodCursor,edinCursor,cursor,opCursor;
     SimpleCursorAdapter spAdapter,pcAdapter,ecAdapter,opAdapter;
     Button btnAdd,btSave;
@@ -112,6 +114,8 @@ public class SpisPokyp extends ActionBarActivity implements LoaderManager.Loader
         tvItog = (TextView) findViewById(R.id.tvItog);
         tvItogtxt = (TextView) findViewById(R.id.tvItogtxt);
         tvItognds = (TextView) findViewById(R.id.tvItognds);
+        llI = (LinearLayout) findViewById(R.id.llI);
+        tvI = (TextView) findViewById(R.id.tvI);
         etCount.setVisibility(View.GONE);
         etPrice.setVisibility(View.GONE);
         chbvagno.setVisibility(View.GONE);
@@ -133,16 +137,22 @@ public class SpisPokyp extends ActionBarActivity implements LoaderManager.Loader
 
         if (st==0)
         {
+            llI.setVisibility(View.GONE);
             tvItogtxt.setVisibility(View.GONE);
             tvItog.setVisibility(View.GONE);
             tvItognds.setVisibility(View.GONE);
+            tvI.setVisibility(View.GONE);
         } else {
+            llI.setVisibility(View.VISIBLE);
             tvItogtxt.setVisibility(View.VISIBLE);
             tvItog.setVisibility(View.VISIBLE);
-            if ((prnds == 1) && (nds != 0))
+            if ((prnds == 1) && (nds != 0)) {
+                tvI.setVisibility(View.GONE);
                 tvItognds.setVisibility(View.VISIBLE);
-            else
+            } else {
+                tvI.setVisibility(View.VISIBLE);
                 tvItognds.setVisibility(View.GONE);
+            }
          }
         SumInKorz();
     }
