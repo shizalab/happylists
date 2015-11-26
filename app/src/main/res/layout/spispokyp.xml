@@ -154,7 +154,7 @@
             android:focusable="false"
             android:gravity="left"
             android:paddingLeft="10sp"
-            android:paddingTop="12sp"
+            android:paddingTop="14sp"
             android:ems="10"
             android:text="@string/tvItogtxt"
             android:textColor="#000000"
@@ -177,6 +177,20 @@
                 android:textStyle="bold"
                 android:paddingTop="10sp"
                 android:text=""
+                android:textColor="#333333"
+                android:textSize="10sp" >
+
+            </TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#96f065"
+                android:gravity="right"
+                android:paddingRight="11sp"
+                android:textStyle="bold"
+                android:paddingTop="1sp"
+                android:text=" "
                 android:textColor="#333333"
                 android:textSize="10sp" >
 
