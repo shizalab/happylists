@@ -120,7 +120,9 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
                 startActivity(intenms);
                 return true;
             case R.id.it07:
-                Log.d(TAG, "it07");
+               //Log.d(TAG, "it07");
+                Intent intensp = new Intent(this, Dictionaries.class);
+                startActivity(intensp);
                 return true;
         }
         return false;

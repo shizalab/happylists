@@ -32,6 +32,10 @@
         <activity android:name="NewSpisok"></activity>
         <activity android:name="SpisPokyp"></activity>
         <activity android:name="MainSettigs"></activity>
+        <activity android:name="Dictionaries"></activity>
+        <activity android:name="DicKateg"></activity>
+        <activity android:name="DicProd"></activity>
+        <activity android:name="DicEdin"></activity>
 
     </application>
 

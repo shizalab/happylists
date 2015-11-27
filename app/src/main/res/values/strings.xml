@@ -67,4 +67,34 @@
     <string name="toa_Price">Введите цену продукта!</string>
     <string name="toa_Zero">Количество и цена должны быть больше нуля</string>
 
+    <string name="dictionary">Справочники</string>
+    <string name="tvDicKateg">Категории</string>
+    <string name="tvDicProduct">Товары</string>
+    <string name="tvDicEdin">Единицы</string>
+    <string name="tvDicValut">Валюта</string>
+    <string name="dickateg">Справочник категорий</string>
+    <string name="textkateg">Редактирование категории: </string>
+    <string name="addkateg">Введите название категории!</string>
+    <string name="textk1">Название не может быть пустым</string>
+    <string name="textk2">Вся продукция данной категории перенесена в категорию Временная!</string>
+    <string name="textk3">Нельзя удалить данную категорию! Можно только переименовать.</string>
+    <string name="dicprod">Справочник продукции</string>
+    <string name="etBPN">введите продукцию</string>
+    <string name="spBPK">введите категорию</string>
+    <string name="spBPE">введите единицу</string>
+    <string name="addprod">Введите название продукции!</string>
+    <string name="textprod">Редактирование продукта: </string>
+    <string name="dicedin">Справочник единиц</string>
+    <string name="textedin">Редактирование единицы: </string>
+    <string name="addedin">Введите название единицы!</string>
+    <string name="texte1">Все данные единицы в справочнике продукции переименованы как ШТ!</string>
+    <string name="texte2">Нельзя удалить данную единицу! Можно только переименовать.</string>
+
+    <string name="acBK">введите категорию</string>
+    <string name="btnAbk">Сохранить</string>
+    <string name="btnDbk">Удалить</string>
+    <string name="del_data">Вы уверены, что хотите удалить данную категорию?</string>
+    <string name="del_prod">Вы уверены, что хотите удалить данную продукцию?</string>
+    <string name="del_edin">Вы уверены, что хотите удалить данную единицу?</string>
+
 </resources>

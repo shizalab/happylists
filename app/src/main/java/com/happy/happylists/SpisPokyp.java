@@ -50,7 +50,7 @@ public class SpisPokyp extends ActionBarActivity implements LoaderManager.Loader
     SwipeForSpisPokyp ssp;
 
     String snName;
-    int sn,kv,pr,tmp,vl, prodid, st,prnds;
+    int sn,kv,pr,tmp,vl, prodid, st,prnds, snid;
     float itog,nds,itognds;
     AutoCompleteTextView acPN,acPE,acPOpis;
     EditText etCount,etPrice;
@@ -78,7 +78,7 @@ public class SpisPokyp extends ActionBarActivity implements LoaderManager.Loader
         setContentView(R.layout.spispokyp);
 
         snName = getIntent().getExtras().getString("sname");
-        int snid = getIntent().getExtras().getInt("snid");
+        snid = getIntent().getExtras().getInt("snid");
 
         //начало процедуры отрисовки левого меню
         actionBar = getSupportActionBar();
@@ -185,7 +185,9 @@ public class SpisPokyp extends ActionBarActivity implements LoaderManager.Loader
                 startActivity(intenms);
                 return true;
             case R.id.it07:
-                Log.d(TAG, "it07");
+               // Log.d(TAG, "it07");
+                Intent intensp = new Intent(this, Dictionaries.class);
+                startActivity(intensp);
                 return true;
         }
         return false;
@@ -225,7 +227,12 @@ public class SpisPokyp extends ActionBarActivity implements LoaderManager.Loader
                 Log.d(TAG, "Отправить по E-mail");
                 return true;
             case R.id.it14:
-                Log.d(TAG, "Настройки списка");
+                //Log.d(TAG, "Настройки списка");
+                String btn = getResources().getString(R.string.Sav);
+                Intent intentns = new Intent(this, NewSpisok.class);
+                intentns.putExtra("snid", snid);
+                intentns.putExtra("btn", btn);
+                startActivity(intentns);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

@@ -334,6 +334,14 @@ public class DB {
 	public Cursor getVagnoID(int spid) {
 		return database.rawQuery("Select svagno from Pokypka where _id = "+spid, null);
 	}
+	// выборка всех продуктов с определенным id
+	public Cursor getProdinSP(int pid) {
+		return database.rawQuery("select * from Pokypka where  pid="+pid, null);
+	}
+	// удалить продукт в списке из DB_TABLE
+	public void delRecPS(String DB_TABLE,long id) {
+		database.delete(DB_TABLE, "_id = " + id, null);
+	}
 	//обновить продукт из Списка покупок
 	public void upProdSpisok(String DB_TABLE,int pid, int opid, float skol, float sprice, int v, int eid, int _id,int hu) {
 		SimpleDateFormat sdtf = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss");
@@ -351,4 +359,127 @@ public class DB {
 		database.update(DB_TABLE,cv, "_id = "+ _id, null);
 	}
 
+// работа со СПРАВОЧНИКАМИ
+	// получить все данные Категории
+	public Cursor getAllKateg(String DB_OB) {
+		return database.rawQuery("select * from Kategor order by "+DB_OB, null);
+	}
+	// получить все категорию по id
+	public Cursor getKateg(int kid) {
+		return database.rawQuery("select _id, kname, kcolor from kategor where _id = "+kid, null);
+	}
+	// добавить новую категорию
+	public void addNewKateg(String DB_TABLE, String kname, String kcolor,int hu) {
+		SimpleDateFormat sdtf = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss");
+		String datetime = sdtf.format(new Date(System.currentTimeMillis()));
+		ContentValues cv = new ContentValues();
+		cv.put("kname", kname);
+		cv.put("kcolor", kcolor);
+		cv.put("usid", hu);
+		cv.put("date_in", datetime);
+		cv.put("sinxr", 0);
+		database.insert(DB_TABLE, null, cv);
+	}
+	//обновить существующую категорию
+	public void UpDateKateg(String DB_TABLE,String txt1,String txt2,int id) {
+		SimpleDateFormat sdtf = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss");
+		String datetime = sdtf.format(new Date(System.currentTimeMillis()));
+		ContentValues cv = new ContentValues();
+		cv.put("kname", txt1);
+		cv.put("kcolor", txt2);
+		cv.put("date_in", datetime);
+		cv.put("sinxr", 0);
+		database.update(DB_TABLE, cv, "_id = "+ id, null);
+	}
+	//поиск всех продуктов заданной категории
+	public Cursor getProdKateg(int kid) {
+		return database.rawQuery("select * from products where kid="+kid, null);
+	}
+	//обновить всю продукцию заданой категории
+	public void UpDateKatInProd(String DB_TABLE, int kd, int id) {
+		SimpleDateFormat sdtf = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss");
+		String datetime = sdtf.format(new Date(System.currentTimeMillis()));
+		ContentValues cv = new ContentValues();
+		cv.put("kid", kd);
+		cv.put("date_in", datetime);
+		cv.put("sinxr", 0);
+		database.update(DB_TABLE, cv, "_id = "+ id, null);
+	}
+	//удалить категорию
+	public void delRecKateg(String DB_TABLE,int id) {
+		database.delete(DB_TABLE, "_id = " + id, null);
+	}
+	//получить все продукты
+	public Cursor getAllBProd(String partialValue) {
+		if (partialValue != "")
+			return database.rawQuery("select p._id,k.kname,p.pname,e.ename from products p, kategor k, edin e where p.kid=k._id and p.eid=e._id and p.pname LIKE '%"+partialValue+"%' order by p.pname", null);
+		else
+			return database.rawQuery("select p._id,k.kname,p.pname,e.ename from products p, kategor k, edin e where p.kid=k._id and p.eid=e._id order by p.pname", null);
+	}
+	//получить продукт по id
+	public Cursor getBProd(int pid) {
+		return database.rawQuery("select _id, kid, pname, eid from products where _id = "+pid, null);
+	}
+	//добавить новый продукт
+	public void addNewProd(String DB_TABLE, int kd, String pnam, int ed,int hu) {
+		SimpleDateFormat sdtf = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss");
+		String datetime = sdtf.format(new Date(System.currentTimeMillis()));
+		ContentValues cv = new ContentValues();
+		cv.put("kid", kd);
+		cv.put("pname", pnam);
+		cv.put("eid", ed);
+		cv.put("pimg", "");
+		cv.put("usid", hu);
+		cv.put("date_in", datetime);
+		cv.put("sinxr", 0);
+		database.insert(DB_TABLE, null, cv);
+	}
+	//обновить исправленный продукт
+	public void UpDateProd(String DB_TABLE, int kd, String pnam, int ed,int id) {
+		SimpleDateFormat sdtf = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss");
+		String datetime = sdtf.format(new Date(System.currentTimeMillis()));
+		ContentValues cv = new ContentValues();
+		cv.put("kid", kd);
+		cv.put("pname", pnam);
+		cv.put("eid", ed);
+		cv.put("date_in", datetime);
+		cv.put("sinxr", 0);
+		database.update(DB_TABLE, cv, "_id = "+ id, null);
+	}
+	//удалить продукт со справочника
+	public void delRecProd(String DB_TABLE,int id) {
+		database.delete(DB_TABLE, "_id = " + id, null);
+	}
+	//поиск всей продукции я определенной единицей
+	public Cursor getEdinInProd(int eid) {
+		return database.rawQuery("select * from products where  eid="+eid, null);
+	}
+	//удалить цену
+	public void delPriceProd(String DB_TABLE,int id) {
+		database.delete(DB_TABLE, "pid = " + id, null);
+	}
+	//обновить единицу
+	public void UpDateEdin(String DB_TABLE, String enam,int id) {
+		SimpleDateFormat sdtf = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss");
+		String datetime = sdtf.format(new Date(System.currentTimeMillis()));
+		ContentValues cv = new ContentValues();
+		cv.put("ename", enam);
+		cv.put("date_in", datetime);
+		cv.put("sinxr", 0);
+		database.update(DB_TABLE, cv, "_id = "+ id, null);
+	}
+	//обновить единицу в справочнике продукции
+	public void UpDateEdinInProd(String DB_TABLE, int ed, int id) {
+		SimpleDateFormat sdtf = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss");
+		String datetime = sdtf.format(new Date(System.currentTimeMillis()));
+		ContentValues cv = new ContentValues();
+		cv.put("eid", ed);
+		cv.put("date_in", datetime);
+		cv.put("sinxr", 0);
+		database.update(DB_TABLE, cv, "_id = "+ id, null);
+	}
+	//удалить единицу из справочника
+	public void delRecEd(String DB_TABLE,int id) {
+		database.delete(DB_TABLE, "_id = " + id, null);
+	}
 }
