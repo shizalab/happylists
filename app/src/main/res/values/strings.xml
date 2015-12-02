@@ -72,6 +72,7 @@
     <string name="tvDicProduct">Товары</string>
     <string name="tvDicEdin">Единицы</string>
     <string name="tvDicValut">Валюта</string>
+    <string name="tvDicOpis">Описания товаров</string>
     <string name="dickateg">Справочник категорий</string>
     <string name="textkateg">Редактирование категории: </string>
     <string name="addkateg">Введите название категории!</string>
@@ -89,6 +90,16 @@
     <string name="addedin">Введите название единицы!</string>
     <string name="texte1">Все данные единицы в справочнике продукции переименованы как ШТ!</string>
     <string name="texte2">Нельзя удалить данную единицу! Можно только переименовать.</string>
+    <string name="dicopis">Справочник описаний продукта</string>
+    <string name="spDVN">введите валюту</string>
+    <string name="spDVAbv">введите аббревиатуру</string>
+    <string name="addvn">Введите название валюты!</string>
+    <string name="addabv">Введите аббревиатуру!</string>
+    <string name="textv1">Название валюты не может быть пустым</string>
+    <string name="textv2">Валюта</string>
+    <string name="textv3">вал</string>
+    <string name="textv4">Нельзя удалить данную валюту, так как она используется в списках покупок!</string>
+    <string name="textv5">Нельзя удалить последнюю валюту!</string>
 
     <string name="acBK">введите категорию</string>
     <string name="btnAbk">Сохранить</string>
@@ -96,5 +107,6 @@
     <string name="del_data">Вы уверены, что хотите удалить данную категорию?</string>
     <string name="del_prod">Вы уверены, что хотите удалить данную продукцию?</string>
     <string name="del_edin">Вы уверены, что хотите удалить данную единицу?</string>
+    <string name="del_val">Вы уверены, что хотите удалить данную валюту?</string>
 
 </resources>

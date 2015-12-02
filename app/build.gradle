@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "com.happy.happylists"
+        applicationId "com.happy.happylists2"
         minSdkVersion 10
         targetSdkVersion 23
         versionCode 1
@@ -34,4 +34,5 @@ dependencies {
     compile files('libs/nineoldandroids-2.4.0.jar')
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
+    compile 'com.google.android.gms:play-services-appindexing:8.1.0'
 }
