@@ -1,4 +1,4 @@
-package com.happy.happylists;
+package com.happy.happylists2;
 
 import org.junit.Test;
 

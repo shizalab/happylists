@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.happy.happylists2" >
+    package="com.happy.happylists2"
+    android:versionCode="1"
+    android:versionName="2.0.0">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
@@ -12,7 +14,7 @@
         >
 
         <activity
-            android:name=".SplashScreen"
+            android:name="com.happy.happylists2.SplashScreen"
             android:theme="@style/Theme.Splash"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -21,21 +23,21 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".MainActivity"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name="NewSpisok"></activity>
-        <activity android:name="SpisPokyp"></activity>
-        <activity android:name="MainSettigs"></activity>
-        <activity android:name="Dictionaries"></activity>
-        <activity android:name="DicKateg"></activity>
-        <activity android:name="DicProd"></activity>
-        <activity android:name="DicEdin"></activity>
+        <activity android:name="com.happy.happylists2.MainActivity"></activity>
+        <activity android:name="com.happy.happylists2.NewSpisok"></activity>
+        <activity android:name="com.happy.happylists2.SpisPokyp"></activity>
+        <activity android:name="com.happy.happylists2.MainSettigs"></activity>
+        <activity android:name="com.happy.happylists2.Dictionaries"></activity>
+        <activity android:name="com.happy.happylists2.DicKateg"></activity>
+        <activity android:name="com.happy.happylists2.DicProd"></activity>
+        <activity android:name="com.happy.happylists2.DicEdin"></activity>
+        <activity android:name="com.happy.happylists2.DicVal"></activity>
+
+        <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
     </application>
 
