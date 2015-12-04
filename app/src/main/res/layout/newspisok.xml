@@ -86,52 +86,83 @@
         android:orientation="vertical"
         android:layout_gravity="center">
 
-        <CheckBox
+        <android.support.v7.widget.SwitchCompat
             android:id="@+id/cbStoim"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10sp"
             android:layout_marginRight="10sp"
-            android:text="@string/cbStoim"/>
+            android:text="@string/cbStoim"
+            android:textSize="15sp"
+            android:textOff="OFF"
+            android:textOn="ON"/>
 
-        <CheckBox
+        <android.support.v7.widget.SwitchCompat
             android:id="@+id/cbPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="45sp"
             android:layout_marginRight="10sp"
-            android:text="@string/cbPrice"/>
+            android:text="@string/cbPrice"
+            android:textSize="15sp"
+            android:textOff="OFF"
+            android:textOn="ON"/>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:layout_gravity="center">
 
-            <CheckBox
+            <android.support.v7.widget.SwitchCompat
                 android:id="@+id/cbPricends"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="45sp"
                 android:layout_marginRight="10sp"
-                android:text="@string/cbPricends"/>
+                android:text="@string/cbPricends"
+                android:textSize="15sp"
+                android:textOff="OFF"
+                android:textOn="ON"/>
 
-            <EditText
-                android:id="@+id/etnds"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:layout_marginLeft="20sp"
-                android:hint="@string/etnds">
-            </EditText>
+                android:orientation="horizontal"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:id="@+id/tvnds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5sp"
+                    android:layout_marginLeft="75sp"
+                    android:textSize="15sp"
+                    android:text="@string/etnds">
+                </TextView>
+
+                <EditText
+                    android:id="@+id/etnds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:layout_marginLeft="15sp">
+                </EditText>
+
+            </LinearLayout>
+
         </LinearLayout>
 
-        <CheckBox
+        <android.support.v7.widget.SwitchCompat
             android:id="@+id/cbValuta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10sp"
+            android:layout_marginLeft="20sp"
             android:layout_marginRight="10sp"
-            android:text="@string/cbValuta"/>
+            android:text="@string/cbValuta"
+            android:textSize="15sp"
+            android:textOff="OFF"
+            android:textOn="ON"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -147,29 +178,38 @@
             </Spinner>
         </LinearLayout>
 
-        <CheckBox
+        <android.support.v7.widget.SwitchCompat
             android:id="@+id/cbKolvo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10sp"
             android:layout_marginRight="10sp"
-            android:text="@string/cbKolvo"/>
+            android:text="@string/cbKolvo"
+            android:textSize="15sp"
+            android:textOff="OFF"
+            android:textOn="ON"/>
 
-        <CheckBox
+        <android.support.v7.widget.SwitchCompat
             android:id="@+id/cbNapom"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10sp"
             android:layout_marginRight="10sp"
-            android:text="@string/cbNapom"/>
+            android:text="@string/cbNapom"
+            android:textSize="15sp"
+            android:textOff="OFF"
+            android:textOn="ON"/>
 
-        <CheckBox
+        <android.support.v7.widget.SwitchCompat
             android:id="@+id/cbSin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10sp"
             android:layout_marginRight="10sp"
-            android:text="@string/cbSin"/>
+            android:text="@string/cbSin"
+            android:textSize="15sp"
+            android:textOff="OFF"
+            android:textOn="ON"/>
 
      </LinearLayout>
 
