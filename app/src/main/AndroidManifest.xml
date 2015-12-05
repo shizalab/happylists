@@ -30,8 +30,10 @@
         <activity android:name="com.happy.happylists2.Dictionaries"></activity>
         <activity android:name="com.happy.happylists2.DicKateg"></activity>
         <activity android:name="com.happy.happylists2.DicProd"></activity>
+        <activity android:name="com.happy.happylists2.DicProdOpis"></activity>
         <activity android:name="com.happy.happylists2.DicEdin"></activity>
         <activity android:name="com.happy.happylists2.DicVal"></activity>
+
 
         <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->

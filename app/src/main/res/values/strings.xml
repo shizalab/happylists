@@ -24,7 +24,7 @@
     <string name="cbStoim">Стоимость</string>
     <string name="cbPrice">Цена</string>
     <string name="cbPricends">Цена БЕЗ НДС</string>
-    <string name="etnds">% ндс</string>
+    <string name="etnds">НДС %</string>
     <string name="cbValuta">Валюта</string>
     <string name="cbKolvo">Количество</string>
     <string name="cbNapom">Напоминание</string>
@@ -45,7 +45,7 @@
 
     <string name="add_prod">введите продукт</string>
     <string name="add_opis">описание продукта</string>
-    <string name="Add">+</string>
+    <string name="Add">Добавить</string>
     <string name="etCount">кол-во</string>
     <string name="acPE">ед-ца</string>
     <string name="etPrice">цена</string>
@@ -83,6 +83,9 @@
     <string name="etBPN">введите продукцию</string>
     <string name="spBPK">введите категорию</string>
     <string name="spBPE">введите единицу</string>
+    <string name="dicprodopis">Справочник описания продукта</string>
+    <string name="textprodopis">Редактирование описания продукта: </string>
+    <string name="addpo">Введите описание продукта!</string>
     <string name="addprod">Введите название продукции!</string>
     <string name="textprod">Редактирование продукта: </string>
     <string name="dicedin">Справочник единиц</string>
@@ -108,5 +111,6 @@
     <string name="del_prod">Вы уверены, что хотите удалить данную продукцию?</string>
     <string name="del_edin">Вы уверены, что хотите удалить данную единицу?</string>
     <string name="del_val">Вы уверены, что хотите удалить данную валюту?</string>
+    <string name="del_opis">Вы уверены, что хотите удалить данное описание продукта?</string>
 
 </resources>

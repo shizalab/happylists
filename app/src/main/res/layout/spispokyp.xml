@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-    <LinearLayout
+        <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,190 +34,181 @@
 
         </AutoCompleteTextView>
 
-        <Button
-            android:id="@+id/btnAdd"
-            android:layout_width="47sp"
-            android:layout_height="wrap_content"
-            android:textColor="#FFFFFF"
-            android:layout_marginRight="10sp"
-            android:layout_marginTop="1sp"
-            android:textSize="30sp"
-            android:text="@string/Add" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="7sp"
-        android:orientation="horizontal">
-
-        <AutoCompleteTextView
-            android:id="@+id/acPOpis"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="3sp"
-            android:layout_marginBottom="15sp"
-            android:layout_marginRight="10sp"
-            android:layout_marginLeft="10sp"
-            android:layout_weight="1.1"
-            android:completionThreshold="1"
-            android:hint="@string/add_opis" >
-        </AutoCompleteTextView>
-
         </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ll2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/etCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:layout_marginLeft="10sp"
-            android:hint="@string/etCount" >
-
-        </EditText>
-
-        <AutoCompleteTextView
-            android:id="@+id/acPE"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:completionThreshold="1"
-            android:hint="@string/acPE" >
-        </AutoCompleteTextView>
-
-        <EditText
-            android:id="@+id/etPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:hint="@string/etPrice">
-        </EditText>
-
-        <CheckBox
-            android:id="@+id/chbvagno"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity = "left"
-            android:layout_marginLeft="7sp"
-            android:layout_gravity="center_vertical"
-            android:text="@string/chbvagno">
-        </CheckBox>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ll3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btSave"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:textSize="15sp"
-            android:text="@string/Sav">
-        </Button>
-
-    </LinearLayout>
-
-    <ListView
-        android:id="@+id/lvData"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10sp"
-        android:layout_marginRight="10sp"
-        android:layout_marginTop="10sp"
-        android:dividerHeight="0sp"
-        android:divider="@android:color/transparent"
-        android:layout_weight="1">
-    </ListView>
-
-    <LinearLayout
-        android:id="@+id/llI"
-        android:layout_width="match_parent"
-        android:layout_height="55sp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/tvItogtxt"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="#96f065"
-            android:focusable="false"
-            android:gravity="left"
-            android:paddingLeft="10sp"
-            android:paddingTop="14sp"
-            android:ems="10"
-            android:text="@string/tvItogtxt"
-            android:textColor="#000000"
-            android:textSize="20sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:orientation="vertical"
-            android:gravity="right"
-            android:background="#96f065">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7sp"
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tvItognds"
+            <AutoCompleteTextView
+                android:id="@+id/acPOpis"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#96f065"
-                android:gravity="right"
-                android:paddingRight="11sp"
-                android:textStyle="bold"
-                android:paddingTop="10sp"
-                android:text=""
-                android:textColor="#333333"
-                android:textSize="10sp" >
-
-            </TextView>
-
-            <TextView
-                android:id="@+id/tvI"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="#96f065"
-                android:gravity="right"
-                android:paddingRight="11sp"
-                android:textStyle="bold"
-                android:paddingTop="1sp"
-                android:text=" "
-                android:textColor="#333333"
-                android:textSize="10sp" >
-
-            </TextView>
-
-            <TextView
-                android:id="@+id/tvItog"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="#96f065"
-                android:gravity="right"
-                android:paddingRight="10sp"
-                android:textStyle="bold"
-                android:paddingTop="0sp"
-                android:text=""
-                android:textColor="#000000"
-                android:textSize="20sp" >
-
-            </TextView>
-
-
+                android:layout_marginTop="3sp"
+                android:layout_marginBottom="15sp"
+                android:layout_marginRight="10sp"
+                android:layout_marginLeft="10sp"
+                android:layout_weight="1.1"
+                android:completionThreshold="1"
+                android:hint="@string/add_opis" >
+            </AutoCompleteTextView>
 
         </LinearLayout>
 
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/etCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:layout_marginLeft="10sp"
+                android:textSize="15sp"
+                android:hint="@string/etCount" >
+            </EditText>
+
+            <AutoCompleteTextView
+                android:id="@+id/acPE"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:completionThreshold="1"
+                android:textSize="15sp"
+                android:hint="@string/acPE" >
+            </AutoCompleteTextView>
+
+            <EditText
+                android:id="@+id/etPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:textSize="15sp"
+                android:hint="@string/etPrice">
+            </EditText>
+
+            <CheckBox
+                android:id="@+id/chbvagno"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity = "left"
+                android:layout_marginLeft="7sp"
+                android:layout_gravity="center_vertical"
+                android:text="@string/chbvagno">
+            </CheckBox>
+
+             <LinearLayout
+                android:id="@+id/ll3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btSave"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:text=""
+                    android:textSize="10sp">
+                </Button>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/lvData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10sp"
+            android:layout_marginRight="10sp"
+            android:layout_marginTop="10sp"
+            android:dividerHeight="0sp"
+            android:divider="@android:color/transparent"
+            android:layout_weight="1">
+        </ListView>
+
+        <LinearLayout
+            android:id="@+id/llI"
+            android:layout_width="match_parent"
+            android:layout_height="55sp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvItogtxt"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="#96f065"
+                android:focusable="false"
+                android:gravity="left"
+                android:paddingLeft="10sp"
+                android:paddingTop="14sp"
+                android:ems="10"
+                android:text="@string/tvItogtxt"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical"
+                android:gravity="right"
+                android:background="#96f065">
+
+                <TextView
+                    android:id="@+id/tvItognds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#96f065"
+                    android:gravity="right"
+                    android:paddingRight="11sp"
+                    android:textStyle="bold"
+                    android:paddingTop="10sp"
+                    android:text=""
+                    android:textColor="#333333"
+                    android:textSize="10sp" >
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/tvI"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#96f065"
+                    android:gravity="right"
+                    android:paddingRight="11sp"
+                    android:textStyle="bold"
+                    android:paddingTop="1sp"
+                    android:text=" "
+                    android:textColor="#333333"
+                    android:textSize="10sp" >
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/tvItog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#96f065"
+                    android:gravity="right"
+                    android:paddingRight="10sp"
+                    android:textStyle="bold"
+                    android:paddingTop="0sp"
+                    android:text=""
+                    android:textColor="#000000"
+                    android:textSize="20sp" >
+
+                </TextView>
+
+
+
+            </LinearLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 
