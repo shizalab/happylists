@@ -19,6 +19,7 @@
     <color name="primary_dark">#e2e0e0</color>
 
     <color name="lv_grey">#BEBEBE</color>
+    <color name="opis">#666666</color>
     <color name="lv_red">#FF0000</color>
     <color name="lv_black">#000000</color>
     <color name="lv_alfa">@android:color/transparent</color>

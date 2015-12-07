@@ -4,4 +4,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="toolbar_double_height">112dp</dimen>
     <dimen name="cardview_toolbar_spacer">32dp</dimen>
+
+    <dimen name="size_kol">7sp</dimen>
+    <dimen name="size_st">13sp</dimen>
 </resources>
