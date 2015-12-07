@@ -6,11 +6,12 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:background="@drawable/lightback">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <LinearLayout
@@ -59,7 +60,7 @@
 
         <LinearLayout
             android:id="@+id/ll2"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
@@ -93,7 +94,7 @@
 
             <CheckBox
                 android:id="@+id/chbvagno"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity = "left"
                 android:layout_marginLeft="7sp"
@@ -103,18 +104,22 @@
 
              <LinearLayout
                 android:id="@+id/ll3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal">
+                android:layout_width="match_parent"
+                android:layout_height="40sp"
+                android:gravity="right"
+                android:orientation="horizontal"
+                 android:layout_marginRight="15dp">
 
                 <Button
                     android:id="@+id/btSave"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
+                    android:layout_gravity="right"
                     android:text=""
-                    android:textSize="10sp">
+                    android:textSize="10sp"
+                    android:background="#27c6f4"
+                    android:textColor="#ffffff">
                 </Button>
 
             </LinearLayout>
@@ -135,41 +140,39 @@
         <LinearLayout
             android:id="@+id/llI"
             android:layout_width="match_parent"
-            android:layout_height="55sp"
-            android:orientation="horizontal">
+            android:layout_height="70sp"
+            android:orientation="horizontal"
+            android:background="@drawable/itoglight">
 
             <TextView
                 android:id="@+id/tvItogtxt"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:background="#96f065"
                 android:focusable="false"
                 android:gravity="left"
                 android:paddingLeft="10sp"
                 android:paddingTop="14sp"
                 android:ems="10"
                 android:text="@string/tvItogtxt"
-                android:textColor="#000000"
+                android:textColor="#ffffff"
                 android:textSize="20sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"
                 android:orientation="vertical"
-                android:gravity="right"
-                android:background="#96f065">
+                android:gravity="right">
 
                 <TextView
                     android:id="@+id/tvItognds"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="#96f065"
                     android:gravity="right"
                     android:paddingRight="11sp"
                     android:textStyle="bold"
                     android:paddingTop="10sp"
                     android:text=""
-                    android:textColor="#333333"
+                    android:textColor="#ffce9f"
                     android:textSize="10sp" >
 
                 </TextView>
@@ -178,7 +181,6 @@
                     android:id="@+id/tvI"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="#96f065"
                     android:gravity="right"
                     android:paddingRight="11sp"
                     android:textStyle="bold"
@@ -193,13 +195,12 @@
                     android:id="@+id/tvItog"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="#96f065"
                     android:gravity="right"
                     android:paddingRight="10sp"
                     android:textStyle="bold"
                     android:paddingTop="0sp"
                     android:text=""
-                    android:textColor="#000000"
+                    android:textColor="#ffffff"
                     android:textSize="20sp" >
 
                 </TextView>
